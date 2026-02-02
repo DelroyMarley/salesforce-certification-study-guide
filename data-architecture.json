@@ -1,0 +1,1306 @@
+{
+  "exam": "Salesforce Data Architecture and Management Designer",
+  "version": "2025",
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Data Modeling",
+      "question": "A company needs to track multiple addresses for each Account with different types (billing, shipping, headquarters). What is the recommended data model?",
+      "options": [
+        "A. Add multiple address fields to the Account object",
+        "B. Create a custom Address object with a lookup to Account",
+        "C. Use a junction object between Account and a standard Address object",
+        "D. Store addresses in a long text field as JSON"
+      ],
+      "correctAnswer": "B",
+      "explanation": "A custom Address object with a lookup to Account allows unlimited addresses per account with proper data typing, querying, and reporting capabilities. This is more scalable and maintainable than adding multiple field sets."
+    },
+    {
+      "id": 2,
+      "topic": "Data Modeling",
+      "question": "When should a Master-Detail relationship be used instead of a Lookup?",
+      "options": [
+        "A. When child records should exist independently",
+        "B. When roll-up summaries are needed and child records should be deleted with parent",
+        "C. When you need more than 2 relationships",
+        "D. When the relationship is optional"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Master-Detail provides roll-up summary fields, cascade delete, and inherited sharing. Use it when child records shouldn't exist without a parent and you need aggregations."
+    },
+    {
+      "id": 3,
+      "topic": "Data Modeling",
+      "question": "What is the maximum number of custom objects allowed in a Salesforce org?",
+      "options": [
+        "A. 200",
+        "B. 400",
+        "C. 2,000",
+        "D. It depends on the edition and licenses"
+      ],
+      "correctAnswer": "D",
+      "explanation": "The limit varies by edition: Enterprise allows 200, Unlimited allows 2,000+ depending on add-ons. Additional objects can be purchased. Always verify current limits in Salesforce documentation."
+    },
+    {
+      "id": 4,
+      "topic": "Data Modeling",
+      "question": "A company has complex product configurations with multiple attributes. Which approach best handles this?",
+      "options": [
+        "A. Add all possible attributes as fields on Product2",
+        "B. Use a flexible attribute model with an Attribute object linked to Product2",
+        "C. Store configurations in a JSON field",
+        "D. Create separate Product objects for each configuration type"
+      ],
+      "correctAnswer": "B",
+      "explanation": "A flexible attribute model (Product2 -> ProductAttribute junction with Attribute definition object) allows unlimited attributes without schema changes. This is the Entity-Attribute-Value pattern."
+    },
+    {
+      "id": 5,
+      "topic": "Data Modeling",
+      "question": "What is the purpose of a skinny table in Salesforce?",
+      "options": [
+        "A. To reduce storage costs",
+        "B. To improve query performance by including only frequently used fields",
+        "C. To store archived data",
+        "D. To denormalize data for reporting"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Skinny tables are custom tables that contain a subset of frequently accessed fields, improving query performance for reports and list views. They're created by Salesforce Support upon request."
+    },
+    {
+      "id": 6,
+      "topic": "Large Data Volumes",
+      "question": "At what record count should an organization start considering Large Data Volume (LDV) strategies?",
+      "options": [
+        "A. 100,000 records",
+        "B. 1 million records",
+        "C. 10 million records",
+        "D. It depends on usage patterns, not just record count"
+      ],
+      "correctAnswer": "D",
+      "explanation": "LDV considerations depend on many factors: query complexity, sharing rules, data skew, update frequency, and user concurrency. Some orgs need LDV strategies at 1M records, others not until 100M+."
+    },
+    {
+      "id": 7,
+      "topic": "Large Data Volumes",
+      "question": "What is data skew and why is it problematic?",
+      "options": [
+        "A. Uneven data distribution causing performance issues with sharing and locking",
+        "B. Incorrect data types in fields",
+        "C. Too many relationships on an object",
+        "D. Duplicate records in the system"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Data skew occurs when records cluster around certain values (ownership skew, lookup skew, account data skew). It causes sharing recalculation delays, record locking, and query performance issues."
+    },
+    {
+      "id": 8,
+      "topic": "Large Data Volumes",
+      "question": "What is the recommended approach to avoid ownership skew?",
+      "options": [
+        "A. Distribute ownership across multiple users or use a queue",
+        "B. Use a single admin user for all records",
+        "C. Disable sharing rules",
+        "D. Use Private OWD for all objects"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Ownership skew occurs when one user owns too many records. Distribute ownership using assignment rules, queues, or integration users to prevent locking issues during role changes and sharing recalculations."
+    },
+    {
+      "id": 9,
+      "topic": "Large Data Volumes",
+      "question": "Which index type is automatically created on all standard and custom fields marked as External ID?",
+      "options": [
+        "A. Composite index",
+        "B. Full-text index",
+        "C. Standard database index",
+        "D. No index is created automatically"
+      ],
+      "correctAnswer": "C",
+      "explanation": "External ID fields are automatically indexed, enabling efficient SOQL queries and upsert operations. This makes them ideal for integration scenarios with external system keys."
+    },
+    {
+      "id": 10,
+      "topic": "Large Data Volumes",
+      "question": "When querying a table with 50 million records, what significantly improves performance?",
+      "options": [
+        "A. Using SELECT * to get all fields",
+        "B. Using indexed fields in WHERE clause and selective queries",
+        "C. Querying during business hours",
+        "D. Using SOSL instead of SOQL"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Use indexed fields (Id, Name, External ID, custom indexes) in WHERE clauses. Queries must be selective (return <1M records or <10-15% of total) to use indexes effectively."
+    },
+    {
+      "id": 11,
+      "topic": "Large Data Volumes",
+      "question": "What is the purpose of a custom index in Salesforce?",
+      "options": [
+        "A. To create unique constraints",
+        "B. To improve query performance on non-standard indexed fields",
+        "C. To enforce data validation",
+        "D. To speed up DML operations"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Custom indexes on fields used frequently in WHERE clauses improve query performance. They're created by Salesforce Support based on query analysis. Indexes help when queries are selective."
+    },
+    {
+      "id": 12,
+      "topic": "Large Data Volumes",
+      "question": "How does the query optimizer determine whether to use an index?",
+      "options": [
+        "A. Always uses available indexes",
+        "B. Uses index if query is selective (returns small percentage of records)",
+        "C. Random selection",
+        "D. Based on time of day"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The optimizer uses indexes when queries are selective (typically <1M records or <10-15% of table). Non-selective queries perform full table scans regardless of available indexes."
+    },
+    {
+      "id": 13,
+      "topic": "Data Migration",
+      "question": "What is the recommended tool for loading millions of records into Salesforce?",
+      "options": [
+        "A. Data Import Wizard",
+        "B. Data Loader with Bulk API",
+        "C. Workbench",
+        "D. Apex Data Loader"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Data Loader with Bulk API is optimized for large data volumes, processing records in batches asynchronously. It supports up to 10,000 records per batch and handles millions efficiently."
+    },
+    {
+      "id": 14,
+      "topic": "Data Migration",
+      "question": "During migration, what approach ensures referential integrity when loading related objects?",
+      "options": [
+        "A. Load all objects simultaneously",
+        "B. Load parent objects first, use External IDs to relate child records",
+        "C. Load child objects first",
+        "D. Use self-referencing lookups"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Load parent objects first to establish IDs or External IDs. Then load child objects using parent External IDs for relationship resolution. This maintains referential integrity without manual ID mapping."
+    },
+    {
+      "id": 15,
+      "topic": "Data Migration",
+      "question": "What is the purpose of a mapping document in data migration?",
+      "options": [
+        "A. To track user permissions",
+        "B. To document source-to-target field mappings and transformations",
+        "C. To store API credentials",
+        "D. To log migration errors"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Mapping documents define how source system fields map to Salesforce fields, including data transformations, default values, and validation rules. They're essential for migration planning and execution."
+    },
+    {
+      "id": 16,
+      "topic": "Data Migration",
+      "question": "Which API is best for initial bulk data loads?",
+      "options": [
+        "A. REST API",
+        "B. SOAP API",
+        "C. Bulk API 2.0",
+        "D. Streaming API"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Bulk API 2.0 is optimized for large data loads, processing asynchronously in batches. It's more efficient than REST/SOAP for millions of records and provides better error handling."
+    },
+    {
+      "id": 17,
+      "topic": "Data Migration",
+      "question": "What should be disabled during large data loads to improve performance?",
+      "options": [
+        "A. Validation rules, triggers, workflow rules (where appropriate)",
+        "B. All security features",
+        "C. User accounts",
+        "D. Standard fields"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Temporarily disabling validation rules, triggers, workflows, and process builders can significantly improve load performance. Re-enable after loading and run data validation scripts to ensure quality."
+    },
+    {
+      "id": 18,
+      "topic": "Data Migration",
+      "question": "How should you handle record type assignments during migration?",
+      "options": [
+        "A. Ignore record types and assign later",
+        "B. Map source types to Salesforce Record Type IDs in migration files",
+        "C. Create all records with default type, then update",
+        "D. Record types cannot be set during migration"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Map source system types to Salesforce Record Type IDs (or Developer Names) in your migration files. This ensures proper categorization from the start and avoids update overhead."
+    },
+    {
+      "id": 19,
+      "topic": "Data Quality",
+      "question": "What is the best approach to prevent duplicate records in Salesforce?",
+      "options": [
+        "A. Manual review of all records",
+        "B. Use Duplicate Rules with Matching Rules",
+        "C. Train users better",
+        "D. Limit record creation to admins"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Duplicate Rules use Matching Rules to identify potential duplicates during creation/editing. They can alert users, block duplicates, or allow with warning. Combine with reports to clean existing duplicates."
+    },
+    {
+      "id": 20,
+      "topic": "Data Quality",
+      "question": "Which feature helps standardize address data in Salesforce?",
+      "options": [
+        "A. Data.com Clean",
+        "B. Address Validation (Data Integration Rules)",
+        "C. Custom validation rules",
+        "D. Workflow field updates"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Data Integration Rules can validate and standardize addresses against postal databases. This ensures consistent address formatting and can geocode addresses automatically."
+    },
+    {
+      "id": 21,
+      "topic": "Data Quality",
+      "question": "What is master data management (MDM) in the context of Salesforce?",
+      "options": [
+        "A. Managing the Salesforce admin's data",
+        "B. Establishing a single source of truth for critical business entities across systems",
+        "C. Backing up Salesforce data",
+        "D. Encrypting sensitive data"
+      ],
+      "correctAnswer": "B",
+      "explanation": "MDM establishes authoritative, consistent data for core entities (customers, products, locations) across all enterprise systems. Salesforce often serves as MDM hub for customer data."
+    },
+    {
+      "id": 22,
+      "topic": "Data Quality",
+      "question": "How can you enforce data completeness for important records?",
+      "options": [
+        "A. Required fields and validation rules",
+        "B. Hope users fill in everything",
+        "C. Post-processing batch jobs only",
+        "D. Report filters"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Make critical fields required at page layout or field level. Use validation rules for conditional requirements (e.g., if Status = Closed, require Reason). Combine with process automation for complex rules."
+    },
+    {
+      "id": 23,
+      "topic": "Data Quality",
+      "question": "What approach helps maintain data quality over time?",
+      "options": [
+        "A. Quarterly manual reviews",
+        "B. Data stewardship program with ongoing monitoring, metrics, and governance",
+        "C. Hiring more data entry staff",
+        "D. Restricting data creation"
+      ],
+      "correctAnswer": "B",
+      "explanation": "A data stewardship program establishes ownership, quality metrics, monitoring processes, and governance policies. This ensures sustained data quality rather than one-time cleanup efforts."
+    },
+    {
+      "id": 24,
+      "topic": "Integration",
+      "question": "Which integration pattern is best for real-time, synchronous data needs?",
+      "options": [
+        "A. Batch integration",
+        "B. Request-Reply (REST/SOAP APIs)",
+        "C. Event-driven with Platform Events",
+        "D. Scheduled export/import"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Request-Reply pattern using REST or SOAP APIs provides synchronous, real-time data exchange. Use when immediate response is required and latency must be minimal."
+    },
+    {
+      "id": 25,
+      "topic": "Integration",
+      "question": "When should Platform Events be used instead of REST API calls?",
+      "options": [
+        "A. When you need immediate response",
+        "B. For fire-and-forget, event-driven architecture with loose coupling",
+        "C. When data volume is small",
+        "D. For synchronous validation"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Platform Events enable asynchronous, event-driven integration. Publishers don't wait for subscribers. Use when systems should be loosely coupled and don't need immediate confirmation."
+    },
+    {
+      "id": 26,
+      "topic": "Integration",
+      "question": "What is the primary purpose of Salesforce Connect (External Objects)?",
+      "options": [
+        "A. To migrate external data into Salesforce",
+        "B. To access external data in real-time without copying it into Salesforce",
+        "C. To back up Salesforce data externally",
+        "D. To improve query performance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Salesforce Connect creates External Objects that map to external data sources (OData, cross-org). Data is queried in real-time, not stored in Salesforce, avoiding storage costs and sync issues."
+    },
+    {
+      "id": 27,
+      "topic": "Integration",
+      "question": "Which consideration is most important when designing an integration with an external ERP?",
+      "options": [
+        "A. UI design",
+        "B. Identifying the system of record for each data element",
+        "C. Salesforce license type",
+        "D. Report formatting"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Defining the system of record for each data element prevents conflicts and ensures data consistency. Know which system owns customer data, pricing, inventory, etc., and handle conflicts appropriately."
+    },
+    {
+      "id": 28,
+      "topic": "Integration",
+      "question": "What is an idempotent operation and why is it important in integrations?",
+      "options": [
+        "A. An operation that runs faster each time",
+        "B. An operation that produces the same result regardless of how many times it's executed",
+        "C. An operation that can only run once",
+        "D. An operation that requires authentication"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Idempotent operations can be safely retried without unintended side effects (e.g., creating duplicate records). Use upserts with External IDs and unique constraints to ensure idempotency."
+    },
+    {
+      "id": 29,
+      "topic": "Integration",
+      "question": "What is the Change Data Capture (CDC) feature used for?",
+      "options": [
+        "A. Capturing screenshots of data changes",
+        "B. Publishing real-time notifications when Salesforce records change",
+        "C. Tracking field history",
+        "D. Validating data changes"
+      ],
+      "correctAnswer": "B",
+      "explanation": "CDC publishes change events when records are created, updated, deleted, or undeleted. External systems subscribe to these events for near-real-time synchronization without polling."
+    },
+    {
+      "id": 30,
+      "topic": "Integration",
+      "question": "Which API provides the best performance for ongoing bidirectional sync of large datasets?",
+      "options": [
+        "A. REST API with polling",
+        "B. SOAP API with scheduled jobs",
+        "C. Bulk API with CDC for change detection",
+        "D. Metadata API"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Combine CDC for change detection (avoiding full-table polling) with Bulk API for efficient data transfer. This minimizes API calls while handling large volumes efficiently."
+    },
+    {
+      "id": 31,
+      "topic": "Big Objects",
+      "question": "What is the primary use case for Big Objects?",
+      "options": [
+        "A. Replacing standard objects",
+        "B. Storing massive volumes of historical data that doesn't need real-time access",
+        "C. Improving query performance",
+        "D. Replacing reports"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Big Objects store billions of records for historical data, audit logs, or analytics. They have limited query capabilities (no SOQL, use Async SOQL) but massive storage capacity at lower cost."
+    },
+    {
+      "id": 32,
+      "topic": "Big Objects",
+      "question": "How do you query Big Objects?",
+      "options": [
+        "A. Standard SOQL",
+        "B. SOSL",
+        "C. Async SOQL or Big Object query syntax",
+        "D. REST API only"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Big Objects use Async SOQL for large queries (results delivered asynchronously) or standard SOQL with significant limitations (must filter on index fields, limited operators)."
+    },
+    {
+      "id": 33,
+      "topic": "Big Objects",
+      "question": "What defines the unique identity of a Big Object record?",
+      "options": [
+        "A. Salesforce ID",
+        "B. Name field",
+        "C. Composite primary key (index fields)",
+        "D. External ID"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Big Objects use composite primary keys defined by index fields (up to 5). There's no auto-generated Salesforce ID. The index defines uniqueness and query capabilities."
+    },
+    {
+      "id": 34,
+      "topic": "Big Objects",
+      "question": "Can Big Object records be updated after creation?",
+      "options": [
+        "A. Yes, like any other object",
+        "B. No, they're immutable - delete and recreate to change",
+        "C. Only via Bulk API",
+        "D. Only admins can update them"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Big Objects are immutable - records cannot be updated after creation. To change data, delete the record and insert a new one. This design supports their massive scale."
+    },
+    {
+      "id": 35,
+      "topic": "Archiving",
+      "question": "What is the recommended approach for archiving old records in Salesforce?",
+      "options": [
+        "A. Delete old records permanently",
+        "B. Move to Big Objects or external storage while maintaining reporting access",
+        "C. Export to CSV and store locally",
+        "D. Keep all records forever"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Archive to Big Objects for in-platform access or external storage with External Objects for reporting. This reduces primary object size, improving performance while maintaining data access."
+    },
+    {
+      "id": 36,
+      "topic": "Archiving",
+      "question": "When archiving data, what must be considered for compliance?",
+      "options": [
+        "A. Color coding of archived records",
+        "B. Retention requirements, audit trail, retrievability, and data integrity",
+        "C. User preferences",
+        "D. Report formatting"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Compliance requirements dictate retention periods, audit access, secure storage, and retrieval capabilities. Ensure archived data meets regulatory requirements (GDPR, SOX, HIPAA, etc.)."
+    },
+    {
+      "id": 37,
+      "topic": "Platform Encryption",
+      "question": "What is Salesforce Shield Platform Encryption used for?",
+      "options": [
+        "A. Encrypting passwords only",
+        "B. Encrypting data at rest in the database with customer-controlled keys",
+        "C. Encrypting network traffic",
+        "D. Encrypting file attachments only"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Shield Platform Encryption encrypts data at rest (stored in database) using customer-managed keys. It protects sensitive data from unauthorized access, including from Salesforce employees."
+    },
+    {
+      "id": 38,
+      "topic": "Platform Encryption",
+      "question": "Which fields can be encrypted with Shield Platform Encryption?",
+      "options": [
+        "A. All field types",
+        "B. Text, Text Area, Email, Phone, URL, Date, DateTime (selected types)",
+        "C. Only custom fields",
+        "D. Only standard fields"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Platform Encryption supports specific field types: Text, Long Text Area, Email, Phone, URL, Date, DateTime. Some fields like formula fields and fields used in criteria can't be encrypted."
+    },
+    {
+      "id": 39,
+      "topic": "Platform Encryption",
+      "question": "What functionality is limited when a field is encrypted?",
+      "options": [
+        "A. No limitations",
+        "B. Filtering, grouping in reports, and use in criteria-based features",
+        "C. Reading the field",
+        "D. Updating the field"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Encrypted fields can't be used in SOQL WHERE clauses (except with deterministic encryption), report filters, duplicate rules, formula references, or sharing rule criteria."
+    },
+    {
+      "id": 40,
+      "topic": "Platform Encryption",
+      "question": "What is deterministic encryption in Shield Platform Encryption?",
+      "options": [
+        "A. Encryption that always produces the same ciphertext for the same plaintext",
+        "B. Random encryption each time",
+        "C. Encryption for specific users only",
+        "D. One-way hashing"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Deterministic encryption produces consistent ciphertext, allowing case-sensitive filtering and grouping. It's less secure than probabilistic encryption but enables some query functionality."
+    },
+    {
+      "id": 41,
+      "topic": "Data Security",
+      "question": "Which feature tracks changes to field values over time?",
+      "options": [
+        "A. Setup Audit Trail",
+        "B. Field History Tracking",
+        "C. Event Monitoring",
+        "D. Change Data Capture"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Field History Tracking records changes to selected fields (up to 20 per object), capturing old value, new value, user, and timestamp. Data retained for 18-24 months."
+    },
+    {
+      "id": 42,
+      "topic": "Data Security",
+      "question": "What is the purpose of Data Mask in Salesforce?",
+      "options": [
+        "A. To hide data in reports",
+        "B. To anonymize or pseudonymize data in sandboxes for testing",
+        "C. To encrypt production data",
+        "D. To create data backups"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Data Mask anonymizes sensitive data when copying to sandboxes, enabling realistic testing without exposing actual PII. Part of Salesforce Shield suite."
+    },
+    {
+      "id": 43,
+      "topic": "Data Security",
+      "question": "How can you ensure PII is not exposed to unauthorized users?",
+      "options": [
+        "A. Hope for the best",
+        "B. Field-level security, encryption, data classification, and access controls",
+        "C. Store PII in attachments",
+        "D. Only use PII in reports"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Implement defense in depth: classify sensitive data, apply field-level security, use Platform Encryption for data at rest, and audit access with Event Monitoring."
+    },
+    {
+      "id": 44,
+      "topic": "Data Security",
+      "question": "What is Data Classification in Salesforce?",
+      "options": [
+        "A. Organizing data into folders",
+        "B. Tagging fields with sensitivity levels (Public, Internal, Confidential, Restricted)",
+        "C. Sorting records alphabetically",
+        "D. Creating custom object hierarchies"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Data Classification lets you tag fields with compliance and sensitivity categories (PII, HIPAA, etc.). This supports governance, security reviews, and compliance reporting."
+    },
+    {
+      "id": 45,
+      "topic": "Backup and Recovery",
+      "question": "What is Salesforce's native data backup solution?",
+      "options": [
+        "A. Data Export Service (weekly/monthly exports)",
+        "B. Automatic daily backups",
+        "C. Real-time replication",
+        "D. Salesforce doesn't provide backup services"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Data Export Service provides scheduled exports (weekly or monthly depending on edition). For more robust backup, use third-party solutions like OwnBackup, Spanning, or Salesforce Backup."
+    },
+    {
+      "id": 46,
+      "topic": "Backup and Recovery",
+      "question": "What should a comprehensive backup strategy include?",
+      "options": [
+        "A. Data export only",
+        "B. Data, metadata, and files with tested recovery procedures",
+        "C. Weekly email reminders",
+        "D. Screenshots of important records"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Include data (records), metadata (config, code, customizations), and files/attachments. Regularly test recovery procedures to ensure backups are usable when needed."
+    },
+    {
+      "id": 47,
+      "topic": "Backup and Recovery",
+      "question": "What is the Recovery Point Objective (RPO) for Salesforce's built-in recovery?",
+      "options": [
+        "A. Real-time (no data loss)",
+        "B. Last backup point (could be days/weeks)",
+        "C. 24 hours maximum",
+        "D. Salesforce guarantees zero data loss"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Native recovery options are limited; recovery to a point in time depends on backup frequency and retention. For lower RPO, use third-party backup solutions with more frequent snapshots."
+    },
+    {
+      "id": 48,
+      "topic": "Data Governance",
+      "question": "What is the primary goal of data governance?",
+      "options": [
+        "A. Restricting data access",
+        "B. Ensuring data quality, security, compliance, and proper use across the organization",
+        "C. Creating more reports",
+        "D. Reducing storage costs"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Data governance establishes policies, procedures, and ownership for data management. It ensures data is accurate, secure, compliant, and used appropriately across the organization."
+    },
+    {
+      "id": 49,
+      "topic": "Data Governance",
+      "question": "What role does a data steward play?",
+      "options": [
+        "A. System administrator",
+        "B. Business owner responsible for data quality and standards within their domain",
+        "C. Database administrator",
+        "D. End user"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Data stewards are business domain experts who define data standards, monitor quality, resolve issues, and ensure data meets business needs. They bridge IT and business."
+    },
+    {
+      "id": 50,
+      "topic": "Data Governance",
+      "question": "How should data retention policies be implemented?",
+      "options": [
+        "A. Delete everything after one year",
+        "B. Based on legal, regulatory, and business requirements with documented policies",
+        "C. Keep everything forever",
+        "D. Let users decide"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Retention policies must align with legal requirements (e.g., 7 years for financial data), regulatory mandates (GDPR right to deletion), and business needs. Document and enforce consistently."
+    },
+    {
+      "id": 51,
+      "topic": "ETL",
+      "question": "What does ETL stand for in data integration?",
+      "options": [
+        "A. Export, Transform, Load",
+        "B. Extract, Transform, Load",
+        "C. Evaluate, Test, Launch",
+        "D. External Transfer Layer"
+      ],
+      "correctAnswer": "B",
+      "explanation": "ETL: Extract data from sources, Transform it (clean, format, enrich), Load into target (Salesforce). It's a fundamental pattern for data migration and integration."
+    },
+    {
+      "id": 52,
+      "topic": "ETL",
+      "question": "Which Salesforce tool supports visual ETL processes?",
+      "options": [
+        "A. Data Loader",
+        "B. MuleSoft Composer / Data Cloud",
+        "C. Workbench",
+        "D. Developer Console"
+      ],
+      "correctAnswer": "B",
+      "explanation": "MuleSoft Composer provides no-code integration with visual data mapping. Data Cloud (formerly Customer 360 Data Manager) offers ETL for unified customer profiles."
+    },
+    {
+      "id": 53,
+      "topic": "ETL",
+      "question": "What is the difference between ETL and ELT?",
+      "options": [
+        "A. No difference",
+        "B. ETL transforms before loading; ELT loads raw data then transforms in target",
+        "C. ELT is faster",
+        "D. ETL is for small data only"
+      ],
+      "correctAnswer": "B",
+      "explanation": "ETL transforms data in transit before loading. ELT loads raw data into the target first, then transforms using target system capabilities. ELT leverages modern cloud computing power."
+    },
+    {
+      "id": 54,
+      "topic": "External Data",
+      "question": "What is OData and how does Salesforce Connect use it?",
+      "options": [
+        "A. A proprietary Salesforce protocol",
+        "B. Open Data Protocol standard for RESTful APIs that Salesforce Connect uses to access external data",
+        "C. A database type",
+        "D. An encryption standard"
+      ],
+      "correctAnswer": "B",
+      "explanation": "OData (Open Data Protocol) is a standard for building RESTful APIs. Salesforce Connect OData adapters connect to OData-compliant sources, creating External Objects for real-time access."
+    },
+    {
+      "id": 55,
+      "topic": "External Data",
+      "question": "When should you use External Objects vs copying data into Salesforce?",
+      "options": [
+        "A. Always use External Objects",
+        "B. Use External Objects when data changes frequently, is large, or must stay external for compliance",
+        "C. Always copy data",
+        "D. Based on user preference"
+      ],
+      "correctAnswer": "B",
+      "explanation": "External Objects: frequently changing data, large volumes, compliance requirements, or source-of-truth must remain external. Copy data when: frequent offline access, complex joins needed, or performance is critical."
+    },
+    {
+      "id": 56,
+      "topic": "External Data",
+      "question": "What is an indirect lookup relationship for External Objects?",
+      "options": [
+        "A. A relationship using Salesforce ID",
+        "B. A relationship matching External Object field to a unique external ID on standard/custom object",
+        "C. A self-referencing relationship",
+        "D. A master-detail relationship"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Indirect lookups match an External Object field to an External ID field on a Salesforce object. This enables relationships between external data and Salesforce records using external keys."
+    },
+    {
+      "id": 57,
+      "topic": "Reporting",
+      "question": "What are the limitations of reporting on External Objects?",
+      "options": [
+        "A. No limitations",
+        "B. Limited to 20,000 external rows, no cross-object joins with standard objects, performance depends on external system",
+        "C. Can't use filters",
+        "D. Only available to admins"
+      ],
+      "correctAnswer": "B",
+      "explanation": "External Object reports are limited by: row limits, can't join with standard objects in reports (use indirect lookups), and performance depends on the external data source response time."
+    },
+    {
+      "id": 58,
+      "topic": "Performance",
+      "question": "What causes 'Too many query rows' error?",
+      "options": [
+        "A. Query returns more than 50,000 rows",
+        "B. Too many columns selected",
+        "C. Query runs too long",
+        "D. Invalid SOQL syntax"
+      ],
+      "correctAnswer": "A",
+      "explanation": "SOQL queries are limited to 50,000 rows total in a synchronous transaction. Use LIMIT, better filtering, or Batch Apex for larger data sets."
+    },
+    {
+      "id": 59,
+      "topic": "Performance",
+      "question": "How can you improve query performance in a large org?",
+      "options": [
+        "A. Query all fields always",
+        "B. Use selective queries with indexed fields, avoid wildcards, limit returned rows",
+        "C. Query during business hours only",
+        "D. Use SOSL for everything"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Optimize queries: use indexed fields in WHERE clauses, make queries selective (<1M rows), avoid leading wildcards, select only needed fields, and use LIMIT appropriately."
+    },
+    {
+      "id": 60,
+      "topic": "Performance",
+      "question": "What is the purpose of Async SOQL?",
+      "options": [
+        "A. To run queries faster",
+        "B. To query large datasets (millions/billions of rows) with results delivered asynchronously",
+        "C. To bypass governor limits",
+        "D. To run queries in parallel"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Async SOQL handles massive queries against Big Objects or huge datasets. Results are delivered to a Big Object, eliminating timeout issues. Ideal for analytics and reporting on large data."
+    },
+    {
+      "id": 61,
+      "topic": "Multi-Org",
+      "question": "What is Salesforce-to-Salesforce used for?",
+      "options": [
+        "A. Connecting personal and work accounts",
+        "B. Sharing records between business partner Salesforce orgs",
+        "C. Backing up data to another org",
+        "D. Migrating from one org to another"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Salesforce-to-Salesforce enables partner organizations to share Leads, Opportunities, and custom objects in real-time. Each org maintains its own security while sharing specified data."
+    },
+    {
+      "id": 62,
+      "topic": "Multi-Org",
+      "question": "What is Salesforce Connect cross-org adapter?",
+      "options": [
+        "A. A tool for merging orgs",
+        "B. An adapter to access data from another Salesforce org as External Objects",
+        "C. A login sharing mechanism",
+        "D. A backup tool"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The cross-org adapter creates External Objects that access data from another Salesforce org in real-time. Useful for multi-org enterprises that need unified data views without replication."
+    },
+    {
+      "id": 63,
+      "topic": "Multi-Org",
+      "question": "What challenges arise in multi-org architectures?",
+      "options": [
+        "A. No challenges",
+        "B. Data synchronization, identity management, consistent data models, governance complexity",
+        "C. Only performance issues",
+        "D. License costs only"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Multi-org brings challenges: keeping data synchronized, managing user identities across orgs, maintaining consistent data models, and coordinating governance and release management."
+    },
+    {
+      "id": 64,
+      "topic": "Heroku Connect",
+      "question": "What is Heroku Connect used for?",
+      "options": [
+        "A. Connecting Heroku apps to Postgres only",
+        "B. Bidirectional sync between Salesforce and Heroku Postgres database",
+        "C. Deploying Salesforce code",
+        "D. Replacing Salesforce reports"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Heroku Connect syncs data bidirectionally between Salesforce and Heroku Postgres. It enables custom apps to work with Salesforce data using SQL while maintaining sync with CRM."
+    },
+    {
+      "id": 65,
+      "topic": "Heroku Connect",
+      "question": "When is Heroku Connect preferred over direct API integration?",
+      "options": [
+        "A. For simple, real-time reads",
+        "B. When building apps requiring complex queries, offline access, or high-volume operations on Salesforce data",
+        "C. For mobile apps only",
+        "D. When Salesforce API is unavailable"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Heroku Connect provides a local, replicated dataset for complex SQL queries, high-volume operations, and scenarios where API rate limits would be prohibitive. Better for data-intensive apps."
+    },
+    {
+      "id": 66,
+      "topic": "Data Cloud",
+      "question": "What is Salesforce Data Cloud (formerly CDP)?",
+      "options": [
+        "A. A backup storage service",
+        "B. A platform to unify customer data from multiple sources into unified profiles for personalization",
+        "C. A reporting tool",
+        "D. A replacement for standard objects"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Data Cloud unifies customer data from various sources (Salesforce, external systems, data lakes) into unified customer profiles. It enables segmentation, insights, and personalization at scale."
+    },
+    {
+      "id": 67,
+      "topic": "Data Cloud",
+      "question": "What is identity resolution in Data Cloud?",
+      "options": [
+        "A. User authentication",
+        "B. Matching and merging data from different sources to identify the same individual",
+        "C. Resolving duplicate contacts",
+        "D. Password recovery"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Identity resolution uses matching rules to link data from multiple sources (email, phone, devices) to a single individual. This creates unified profiles from fragmented data."
+    },
+    {
+      "id": 68,
+      "topic": "Data Transformation",
+      "question": "When migrating data, where should data transformation logic reside?",
+      "options": [
+        "A. Always in Salesforce triggers",
+        "B. In the ETL layer, with validation in Salesforce",
+        "C. Only in source system",
+        "D. Never transform data"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Transform data in the ETL layer (cleansing, formatting, enrichment) before loading. Keep Salesforce validation rules for ongoing data quality. This separates migration logic from runtime behavior."
+    },
+    {
+      "id": 69,
+      "topic": "Data Transformation",
+      "question": "What is the best approach for handling picklist value mapping during migration?",
+      "options": [
+        "A. Load as-is and fix later",
+        "B. Create a value mapping table and transform during ETL",
+        "C. Delete picklists in Salesforce",
+        "D. Use auto-number instead"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Map source values to target picklist values in ETL. Handle unmapped values (set default, create new value, or error). Validate all values exist in target before bulk load."
+    },
+    {
+      "id": 70,
+      "topic": "Data Transformation",
+      "question": "How should dates and times be handled in data migration?",
+      "options": [
+        "A. Use text fields",
+        "B. Standardize to ISO 8601 format, account for time zones, and validate ranges",
+        "C. Convert everything to Unix timestamps",
+        "D. Ignore date fields"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Standardize date formats (ISO 8601), handle timezone conversions (source system timezone to UTC/user timezone), and validate date ranges. Invalid dates cause load failures."
+    },
+    {
+      "id": 71,
+      "topic": "Master Data Management",
+      "question": "What is a golden record in MDM?",
+      "options": [
+        "A. A record owned by the admin",
+        "B. The most accurate, complete, and authoritative version of an entity",
+        "C. A record that can't be deleted",
+        "D. A premium feature record"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The golden record is the best representation of an entity, created by merging data from multiple sources using survivorship rules. It represents the single source of truth."
+    },
+    {
+      "id": 72,
+      "topic": "Master Data Management",
+      "question": "What are survivorship rules in MDM?",
+      "options": [
+        "A. Rules for deleting old records",
+        "B. Rules that determine which source values populate the golden record when conflicts exist",
+        "C. Disaster recovery rules",
+        "D. User permission rules"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Survivorship rules define which source system's value wins when creating golden records. Examples: 'most recent', 'most complete', 'trusted source priority'. Critical for consistent merged data."
+    },
+    {
+      "id": 73,
+      "topic": "API Limits",
+      "question": "How are API call limits calculated in Salesforce?",
+      "options": [
+        "A. Per user per day",
+        "B. Per org based on licenses and edition (rolling 24-hour window)",
+        "C. Per application",
+        "D. Unlimited for Enterprise edition"
+      ],
+      "correctAnswer": "B",
+      "explanation": "API limits are per org, calculated based on edition and user license types. It's a rolling 24-hour window. Monitor usage in Setup > System Overview or via API."
+    },
+    {
+      "id": 74,
+      "topic": "API Limits",
+      "question": "What strategy helps maximize API call efficiency?",
+      "options": [
+        "A. Make more smaller calls",
+        "B. Use Bulk API, Composite API, and batch multiple records per call",
+        "C. Disable authentication",
+        "D. Use anonymous access"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Batch records (up to 200 per call in REST, thousands in Bulk API), use Composite API to combine multiple operations, and implement smart caching to reduce redundant calls."
+    },
+    {
+      "id": 75,
+      "topic": "API Limits",
+      "question": "What happens when API limits are exceeded?",
+      "options": [
+        "A. Salesforce is unavailable",
+        "B. API calls return error; implement retry with exponential backoff",
+        "C. Data is automatically deleted",
+        "D. Nothing, limits are soft"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Exceeding limits returns HTTP 503 or REQUEST_LIMIT_EXCEEDED error. Implement retry logic with exponential backoff, monitor usage proactively, and consider limit increases for legitimate needs."
+    },
+    {
+      "id": 76,
+      "topic": "Compliance",
+      "question": "What is GDPR and how does it affect Salesforce data management?",
+      "options": [
+        "A. A Salesforce feature",
+        "B. EU regulation requiring consent, data access, deletion rights, and breach notification",
+        "C. A database standard",
+        "D. An API protocol"
+      ],
+      "correctAnswer": "B",
+      "explanation": "GDPR (General Data Protection Regulation) requires: lawful data processing, consent management, right to access/rectification/deletion, breach notification, and privacy by design in Salesforce."
+    },
+    {
+      "id": 77,
+      "topic": "Compliance",
+      "question": "How can you implement 'Right to be Forgotten' (GDPR Article 17)?",
+      "options": [
+        "A. Delete user's Salesforce login",
+        "B. Delete or anonymize personal data across all systems including backups",
+        "C. Remove from email lists only",
+        "D. Mark record as inactive"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Right to deletion requires removing personal data from Salesforce, integrated systems, backups, and archives. Use Data Privacy tools, automation, and track where PII exists across systems."
+    },
+    {
+      "id": 78,
+      "topic": "Compliance",
+      "question": "What Salesforce feature helps with consent management?",
+      "options": [
+        "A. Standard Contact object",
+        "B. Individual object and Privacy Center",
+        "C. Account teams",
+        "D. Permission sets"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The Individual object stores consent preferences. Privacy Center (Shield add-on) provides tools for data subject access requests, consent tracking, and policy enforcement."
+    },
+    {
+      "id": 79,
+      "topic": "Data Modeling Advanced",
+      "question": "When should you use a polymorphic lookup (e.g., WhoId, WhatId)?",
+      "options": [
+        "A. Always, for flexibility",
+        "B. When a field must relate to multiple object types without separate lookup fields",
+        "C. Never, they're deprecated",
+        "D. Only for standard objects"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Polymorphic lookups are useful when a record can relate to different object types (like Task relating to Contact or Lead). Custom polymorphic lookups aren't supported, but standard ones (WhoId, WhatId) are powerful."
+    },
+    {
+      "id": 80,
+      "topic": "Data Modeling Advanced",
+      "question": "What is a self-relationship and when is it useful?",
+      "options": [
+        "A. A relationship that connects to external data",
+        "B. A lookup from an object to itself (e.g., Account parent, Employee manager)",
+        "C. A circular reference that should be avoided",
+        "D. A relationship created automatically"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Self-relationships (lookup to same object) model hierarchies: account parent/child, employee manager, product bundles. They enable tree structures within a single object."
+    },
+    {
+      "id": 81,
+      "topic": "Data Modeling Advanced",
+      "question": "What considerations apply when choosing between checkbox and picklist fields?",
+      "options": [
+        "A. No difference",
+        "B. Checkbox for binary yes/no; picklist when values may expand or need reporting categories",
+        "C. Always use picklists",
+        "D. Checkboxes perform better"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Use checkbox for permanent binary choices. Use picklist when values might change or expand, when you need reporting flexibility, or when the concept isn't strictly yes/no."
+    },
+    {
+      "id": 82,
+      "topic": "Data Modeling Advanced",
+      "question": "What is the purpose of record types?",
+      "options": [
+        "A. To improve performance",
+        "B. To provide different page layouts, picklist values, and business processes by category",
+        "C. To restrict access to records",
+        "D. To enable encryption"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Record types enable: different page layouts per user, different picklist values per type, different sales/support processes, and assignment to profiles. They customize the UX by record category."
+    },
+    {
+      "id": 83,
+      "topic": "Data Modeling Advanced",
+      "question": "When is it appropriate to denormalize data?",
+      "options": [
+        "A. Never, always normalize",
+        "B. When query performance is critical and update frequency is low",
+        "C. Always for better readability",
+        "D. Only in production"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Denormalize (duplicate data) when: read performance is critical, data rarely changes, join queries are expensive. Accept update complexity tradeoff. Examples: formula fields, roll-up summaries."
+    },
+    {
+      "id": 84,
+      "topic": "Sandboxes",
+      "question": "Which sandbox type is best for data migration testing?",
+      "options": [
+        "A. Developer sandbox",
+        "B. Full Copy sandbox",
+        "C. Partial Copy sandbox",
+        "D. Developer Pro sandbox"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Full Copy sandbox includes all production data, ideal for migration testing with realistic volumes. Partial Copy provides sampled data. Use Full Copy to validate performance and data integrity."
+    },
+    {
+      "id": 85,
+      "topic": "Sandboxes",
+      "question": "How often can a Full Copy sandbox be refreshed?",
+      "options": [
+        "A. Daily",
+        "B. Weekly",
+        "C. Every 29 days",
+        "D. Unlimited"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Full Copy sandboxes can be refreshed every 29 days. Plan refresh cycles carefully as you can't refresh more frequently. Other sandbox types have shorter refresh intervals."
+    },
+    {
+      "id": 86,
+      "topic": "Sandboxes",
+      "question": "What is sandbox seeding?",
+      "options": [
+        "A. Initial sandbox creation",
+        "B. Loading test data into a sandbox after refresh",
+        "C. Generating random data",
+        "D. Connecting sandboxes together"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Sandbox seeding loads test data after refresh or creation. Use Data Loader, Salesforce CLI, or custom scripts. Partial Copy sandboxes use templates for seeding during refresh."
+    },
+    {
+      "id": 87,
+      "topic": "Performance Tuning",
+      "question": "What is the recommended approach for handling lookup skew?",
+      "options": [
+        "A. Add more lookups",
+        "B. Distribute records across multiple parent records; avoid null lookups in large volumes",
+        "C. Convert to master-detail",
+        "D. Remove the lookup"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Lookup skew occurs when many records point to one parent or have null lookups. Distribute relationships, avoid null lookups (use placeholder record), or consider architecture changes for extreme cases."
+    },
+    {
+      "id": 88,
+      "topic": "Performance Tuning",
+      "question": "How can sharing rule performance be improved in large orgs?",
+      "options": [
+        "A. Add more sharing rules",
+        "B. Simplify rules, reduce group nesting, consider opening OWD if appropriate",
+        "C. Disable sharing entirely",
+        "D. Use more roles"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Simplify sharing: reduce rule count, flatten group hierarchies, avoid role-and-subordinates in large hierarchies. Consider opening OWD with restriction rules for very large volumes."
+    },
+    {
+      "id": 89,
+      "topic": "Performance Tuning",
+      "question": "What causes slow page loads with many related lists?",
+      "options": [
+        "A. Too many fields",
+        "B. Each related list queries data; consider lazy loading or limiting displayed lists",
+        "C. User permissions",
+        "D. Network latency only"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Related lists execute separate queries. Many related lists = many queries = slow pages. Solutions: limit related lists on page layouts, use Enhanced Related Lists with lazy loading."
+    },
+    {
+      "id": 90,
+      "topic": "Testing Strategy",
+      "question": "What should data migration testing include?",
+      "options": [
+        "A. Only record counts",
+        "B. Record counts, field mapping accuracy, relationships, referential integrity, performance, and rollback procedures",
+        "C. Only successful scenarios",
+        "D. Production data only"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Comprehensive testing: verify counts match, field values transformed correctly, relationships intact, business rules enforced, performance acceptable, and rollback procedures work."
+    },
+    {
+      "id": 91,
+      "topic": "Testing Strategy",
+      "question": "How should you approach testing with large data volumes?",
+      "options": [
+        "A. Test with small samples only",
+        "B. Test with production-like volumes to identify performance issues and limits",
+        "C. Skip testing, trust the process",
+        "D. Test only during migration"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Test with realistic data volumes to find: performance bottlenecks, governor limit issues, timeout errors, and sharing calculation delays. What works with 1,000 records may fail at 1 million."
+    },
+    {
+      "id": 92,
+      "topic": "Monitoring",
+      "question": "How do you monitor data storage consumption in Salesforce?",
+      "options": [
+        "A. Guess based on record count",
+        "B. Setup > Storage Usage; also use API for programmatic monitoring",
+        "C. Contact Salesforce support",
+        "D. Check email notifications only"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Monitor in Setup > Storage Usage for data and file storage. Set up alerts before hitting limits. Use REST API (/services/data/vXX/limits/) for programmatic monitoring in dashboards."
+    },
+    {
+      "id": 93,
+      "topic": "Monitoring",
+      "question": "What is Event Monitoring used for?",
+      "options": [
+        "A. Tracking calendar events",
+        "B. Monitoring user activity, API usage, report performance, and security events",
+        "C. Scheduling batch jobs",
+        "D. Monitoring Apex code only"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Event Monitoring tracks: login history, API calls, report runs, Lightning page views, and data exports. Essential for security monitoring, performance analysis, and compliance auditing."
+    },
+    {
+      "id": 94,
+      "topic": "Real-time Analytics",
+      "question": "What is the difference between Reports and CRM Analytics (formerly Tableau CRM)?",
+      "options": [
+        "A. No difference",
+        "B. Reports are real-time on live data; CRM Analytics uses extracted datasets for complex analysis",
+        "C. CRM Analytics replaces reports",
+        "D. Reports are more powerful"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Reports query live Salesforce data with limited joins and complexity. CRM Analytics extracts data into datasets enabling: complex joins, larger volumes, predictive analytics, and external data blending."
+    },
+    {
+      "id": 95,
+      "topic": "Real-time Analytics",
+      "question": "When should data be replicated to an external analytics platform?",
+      "options": [
+        "A. Never, Salesforce handles all analytics",
+        "B. When analysis requires: very large volumes, complex cross-system joins, or specialized analytics tools",
+        "C. Always, for backup",
+        "D. Only for regulatory requirements"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Replicate to external analytics when: data exceeds Salesforce limits, you need joins across multiple platforms, require ML/advanced analytics, or need to combine with non-Salesforce data."
+    },
+    {
+      "id": 96,
+      "topic": "Formula Fields",
+      "question": "What is a key consideration when using formula fields with large data volumes?",
+      "options": [
+        "A. Formula fields improve performance",
+        "B. Complex formulas are calculated at runtime, impacting query and page load performance",
+        "C. Formula fields are cached",
+        "D. No performance impact"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Formula fields calculate at runtime (not stored). Complex formulas on records with many relationships can slow queries and page loads. Consider workflow field updates for static calculations."
+    },
+    {
+      "id": 97,
+      "topic": "Roll-up Summaries",
+      "question": "What is an alternative to roll-up summary fields when using lookup relationships?",
+      "options": [
+        "A. Roll-up summaries work on lookups",
+        "B. Use Flow, Apex triggers, or Rollup Helper app to calculate summaries",
+        "C. Convert to master-detail",
+        "D. No alternative exists"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Since roll-up summaries require master-detail, use declarative tools (Flow) or code (Apex triggers) to aggregate lookup children. Third-party apps like Rollup Helper also provide this functionality."
+    },
+    {
+      "id": 98,
+      "topic": "Data Architecture Patterns",
+      "question": "What is the 'single source of truth' pattern?",
+      "options": [
+        "A. Storing all data in one field",
+        "B. Designating one authoritative system for each data element, with other systems subscribing",
+        "C. Having only one database",
+        "D. Using only Salesforce"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Single source of truth designates one authoritative system for each data entity. Other systems replicate from this source rather than maintaining independent copies, ensuring consistency."
+    },
+    {
+      "id": 99,
+      "topic": "Data Architecture Patterns",
+      "question": "What is the publish-subscribe pattern in data architecture?",
+      "options": [
+        "A. Users publishing reports",
+        "B. Systems publishing events that multiple subscribers consume asynchronously",
+        "C. Scheduled data exports",
+        "D. API polling"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Pub-sub: publishers emit events without knowing consumers. Subscribers listen for events of interest. In Salesforce, Platform Events and CDC implement this pattern for loose coupling."
+    },
+    {
+      "id": 100,
+      "topic": "Data Architecture Patterns",
+      "question": "What is the recommended approach for designing a data architecture?",
+      "options": [
+        "A. Start building immediately",
+        "B. Understand requirements, identify systems of record, plan data flow, consider scale, and document decisions",
+        "C. Copy another company's architecture",
+        "D. Use defaults for everything"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Good data architecture requires: understanding business requirements, identifying authoritative sources, designing data flows and integration patterns, planning for scale, and documenting for governance."
+    }
+  ]
+}

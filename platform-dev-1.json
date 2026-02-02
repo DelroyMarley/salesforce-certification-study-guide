@@ -1,0 +1,1306 @@
+{
+  "exam": "Salesforce Platform Developer I",
+  "version": "2025",
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Apex Fundamentals",
+      "question": "Which data type should be used to store a currency value in Apex?",
+      "options": [
+        "A. Double",
+        "B. Decimal",
+        "C. Currency",
+        "D. Integer"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Decimal is the recommended data type for currency values in Apex because it provides precise decimal representation without rounding errors that can occur with Double."
+    },
+    {
+      "id": 2,
+      "topic": "Apex Fundamentals",
+      "question": "What is the correct way to declare a constant in Apex?",
+      "options": [
+        "A. const Integer MAX_VALUE = 100;",
+        "B. static final Integer MAX_VALUE = 100;",
+        "C. final static Integer MAX_VALUE = 100;",
+        "D. Both B and C are correct"
+      ],
+      "correctAnswer": "D",
+      "explanation": "In Apex, constants are declared using 'static final' (or 'final static' - order doesn't matter). The 'const' keyword doesn't exist in Apex."
+    },
+    {
+      "id": 3,
+      "topic": "Apex Fundamentals",
+      "question": "Which collection type maintains insertion order and allows duplicate values?",
+      "options": [
+        "A. Set",
+        "B. Map",
+        "C. List",
+        "D. Array"
+      ],
+      "correctAnswer": "C",
+      "explanation": "List maintains insertion order and allows duplicates. Set doesn't allow duplicates and doesn't guarantee order. Map stores key-value pairs with unique keys."
+    },
+    {
+      "id": 4,
+      "topic": "Apex Fundamentals",
+      "question": "What happens when you try to add a duplicate value to a Set in Apex?",
+      "options": [
+        "A. An exception is thrown",
+        "B. The duplicate is added anyway",
+        "C. The duplicate is silently ignored",
+        "D. The original value is replaced"
+      ],
+      "correctAnswer": "C",
+      "explanation": "When adding a duplicate to a Set, the operation is silently ignored - no exception is thrown and the Set remains unchanged. This is useful for ensuring unique values."
+    },
+    {
+      "id": 5,
+      "topic": "Apex Fundamentals",
+      "question": "Which statement about Apex primitive data types is TRUE?",
+      "options": [
+        "A. String is a primitive data type",
+        "B. All primitives are passed by reference",
+        "C. Integer has a maximum value of 2^31-1",
+        "D. Boolean can have three values: true, false, null"
+      ],
+      "correctAnswer": "D",
+      "explanation": "In Apex, Boolean variables can be true, false, or null (if not initialized). String is not considered a primitive. Primitives are passed by value, not reference. Integer max is 2^31-1."
+    },
+    {
+      "id": 6,
+      "topic": "SOQL",
+      "question": "What is the maximum number of records returned by a SOQL query without using LIMIT?",
+      "options": [
+        "A. 10,000",
+        "B. 50,000",
+        "C. 100,000",
+        "D. Unlimited"
+      ],
+      "correctAnswer": "B",
+      "explanation": "SOQL queries return a maximum of 50,000 records by default. To retrieve more, you must use Batch Apex or queryMore() in the API."
+    },
+    {
+      "id": 7,
+      "topic": "SOQL",
+      "question": "Which SOQL clause is used to filter results based on related child records?",
+      "options": [
+        "A. WHERE",
+        "B. HAVING",
+        "C. WITH",
+        "D. INCLUDES"
+      ],
+      "correctAnswer": "B",
+      "explanation": "HAVING is used with aggregate queries to filter based on grouped results, including related child records. WHERE filters individual records before grouping."
+    },
+    {
+      "id": 8,
+      "topic": "SOQL",
+      "question": "What is the correct syntax for a parent-to-child subquery?",
+      "options": [
+        "A. SELECT Id, (SELECT Id FROM Contact) FROM Account",
+        "B. SELECT Id, (SELECT Id FROM Contacts) FROM Account",
+        "C. SELECT Id, Contacts.Id FROM Account",
+        "D. SELECT Id FROM Account INCLUDE Contacts"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Parent-to-child subqueries use the child relationship name (plural form - 'Contacts' not 'Contact'). The subquery is enclosed in parentheses within the SELECT clause."
+    },
+    {
+      "id": 9,
+      "topic": "SOQL",
+      "question": "Which function returns the number of records matching a query without retrieving the records?",
+      "options": [
+        "A. Database.query()",
+        "B. Database.countQuery()",
+        "C. [SELECT COUNT() FROM Account]",
+        "D. Both B and C"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Both Database.countQuery() and COUNT() in SOQL return the count without retrieving records. This is more efficient for counting and doesn't count against the 50,000 record limit."
+    },
+    {
+      "id": 10,
+      "topic": "SOQL",
+      "question": "What does the FOR UPDATE clause do in a SOQL query?",
+      "options": [
+        "A. Allows the records to be updated in the same transaction",
+        "B. Locks the records to prevent other users from updating them",
+        "C. Automatically updates the LastModifiedDate",
+        "D. Returns only records that have been recently updated"
+      ],
+      "correctAnswer": "B",
+      "explanation": "FOR UPDATE locks the selected records for the duration of the transaction, preventing other transactions from modifying them. This helps prevent race conditions."
+    },
+    {
+      "id": 11,
+      "topic": "SOSL",
+      "question": "Which statement about SOSL is TRUE?",
+      "options": [
+        "A. SOSL can search across multiple objects in a single query",
+        "B. SOSL returns a List<SObject>",
+        "C. SOSL supports ORDER BY clause",
+        "D. SOSL can query more records than SOQL"
+      ],
+      "correctAnswer": "A",
+      "explanation": "SOSL can search across multiple objects simultaneously, returning a List<List<SObject>>. SOSL doesn't support ORDER BY and has a lower record limit (2,000) than SOQL."
+    },
+    {
+      "id": 12,
+      "topic": "SOSL",
+      "question": "What is the maximum number of records SOSL can return per object?",
+      "options": [
+        "A. 200",
+        "B. 2,000",
+        "C. 10,000",
+        "D. 50,000"
+      ],
+      "correctAnswer": "B",
+      "explanation": "SOSL returns a maximum of 2,000 records per object (or 2,000 total in some contexts). Use SOQL if you need to retrieve more records."
+    },
+    {
+      "id": 13,
+      "topic": "Triggers",
+      "question": "In which order do trigger contexts fire during a record update?",
+      "options": [
+        "A. before update, after update, before update (workflow), after update (workflow)",
+        "B. before update, validation, after update",
+        "C. validation, before update, after update",
+        "D. before update, after update"
+      ],
+      "correctAnswer": "D",
+      "explanation": "For a simple update: before update triggers fire first, then after update triggers. If workflow field updates occur, triggers may fire again. Validation rules run before triggers."
+    },
+    {
+      "id": 14,
+      "topic": "Triggers",
+      "question": "Which trigger context variable contains both old and new values of records?",
+      "options": [
+        "A. Trigger.new and Trigger.old",
+        "B. Trigger.newMap and Trigger.oldMap",
+        "C. Both A and B",
+        "D. Trigger.records"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Trigger.new/Trigger.old contain lists of records, while Trigger.newMap/Trigger.oldMap contain maps keyed by record Id. Both pairs provide old and new values in update/delete contexts."
+    },
+    {
+      "id": 15,
+      "topic": "Triggers",
+      "question": "Which Trigger context variable is NOT available in a before insert trigger?",
+      "options": [
+        "A. Trigger.new",
+        "B. Trigger.newMap",
+        "C. Trigger.isInsert",
+        "D. Trigger.size"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Trigger.newMap is not available in before insert because records don't have IDs yet. The Map requires IDs as keys, which are only assigned after the record is saved."
+    },
+    {
+      "id": 16,
+      "topic": "Triggers",
+      "question": "What is the best practice for preventing recursive trigger execution?",
+      "options": [
+        "A. Use a static Boolean variable to track execution",
+        "B. Use LIMIT 1 in all queries",
+        "C. Avoid using DML in triggers",
+        "D. Use after triggers instead of before triggers"
+      ],
+      "correctAnswer": "A",
+      "explanation": "A static Boolean variable in a helper class can track whether the trigger has already executed in the current transaction, preventing infinite recursion."
+    },
+    {
+      "id": 17,
+      "topic": "Triggers",
+      "question": "A developer needs to update a field on the same record being inserted. Which approach is correct?",
+      "options": [
+        "A. Use an after insert trigger with DML update",
+        "B. Use a before insert trigger and modify Trigger.new directly",
+        "C. Use a workflow field update",
+        "D. Both B and C would work"
+      ],
+      "correctAnswer": "D",
+      "explanation": "In before insert, you can modify Trigger.new directly without DML. Workflow field updates also work. After insert with DML works but is less efficient and causes re-evaluation of triggers."
+    },
+    {
+      "id": 18,
+      "topic": "Testing",
+      "question": "What is the minimum code coverage required to deploy Apex to production?",
+      "options": [
+        "A. 65%",
+        "B. 75%",
+        "C. 80%",
+        "D. 100%"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Salesforce requires a minimum of 75% code coverage across all Apex in the org, and each trigger must have at least 1% coverage. Best practice is to aim for higher coverage."
+    },
+    {
+      "id": 19,
+      "topic": "Testing",
+      "question": "Which annotation allows a test method to access organization data?",
+      "options": [
+        "A. @isTest(accessAllData=true)",
+        "B. @isTest(SeeAllData=true)",
+        "C. @testSetup(useOrgData=true)",
+        "D. @isTest(orgData=true)"
+      ],
+      "correctAnswer": "B",
+      "explanation": "@isTest(SeeAllData=true) allows test methods to access actual org data. However, best practice is to create test data using @testSetup or in the test method itself."
+    },
+    {
+      "id": 20,
+      "topic": "Testing",
+      "question": "What is the purpose of the @testSetup annotation?",
+      "options": [
+        "A. To run setup code before each test method",
+        "B. To create test data once that's available to all test methods in the class",
+        "C. To configure test settings for the entire org",
+        "D. To mock external callouts"
+      ],
+      "correctAnswer": "B",
+      "explanation": "@testSetup creates test data once at the beginning of the test class. This data is rolled back and recreated fresh for each test method, but saves time compared to creating data in each method."
+    },
+    {
+      "id": 21,
+      "topic": "Testing",
+      "question": "How do you test code that makes HTTP callouts?",
+      "options": [
+        "A. Use @isTest(SeeAllData=true)",
+        "B. Implement HttpCalloutMock interface",
+        "C. Use Test.startTest() and Test.stopTest()",
+        "D. Disable callouts in test context"
+      ],
+      "correctAnswer": "B",
+      "explanation": "To test callouts, implement the HttpCalloutMock interface and use Test.setMock() to return mock responses. Actual callouts are not allowed in test context."
+    },
+    {
+      "id": 22,
+      "topic": "Testing",
+      "question": "What does Test.startTest() and Test.stopTest() do?",
+      "options": [
+        "A. Marks the beginning and end of the test method",
+        "B. Resets governor limits and executes async operations synchronously",
+        "C. Enables debug logging during tests",
+        "D. Creates a savepoint for rollback"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Test.startTest() resets governor limits, giving the code between startTest and stopTest its own set of limits. stopTest() also forces asynchronous operations to complete synchronously."
+    },
+    {
+      "id": 23,
+      "topic": "Governor Limits",
+      "question": "What is the maximum number of SOQL queries allowed in a synchronous transaction?",
+      "options": [
+        "A. 50",
+        "B. 100",
+        "C. 150",
+        "D. 200"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Synchronous transactions allow up to 100 SOQL queries. Asynchronous transactions (Batch, Future, Queueable) allow 200 SOQL queries."
+    },
+    {
+      "id": 24,
+      "topic": "Governor Limits",
+      "question": "What is the maximum number of records that can be processed by DML statements in a single transaction?",
+      "options": [
+        "A. 5,000",
+        "B. 10,000",
+        "C. 50,000",
+        "D. Unlimited"
+      ],
+      "correctAnswer": "B",
+      "explanation": "A single transaction can process up to 10,000 records across all DML statements combined. Use Batch Apex for larger data volumes."
+    },
+    {
+      "id": 25,
+      "topic": "Governor Limits",
+      "question": "Which approach helps avoid the 'Too many SOQL queries' error?",
+      "options": [
+        "A. Move queries inside loops",
+        "B. Use SOSL instead of SOQL",
+        "C. Bulkify code by querying outside loops",
+        "D. Use Database.query() instead of inline SOQL"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Bulkification means collecting IDs first, then querying outside the loop, and using Maps for lookups. Never put SOQL queries inside loops."
+    },
+    {
+      "id": 26,
+      "topic": "Governor Limits",
+      "question": "What is the CPU time limit for synchronous Apex transactions?",
+      "options": [
+        "A. 5,000 ms",
+        "B. 10,000 ms",
+        "C. 30,000 ms",
+        "D. 60,000 ms"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Synchronous transactions have a 10,000 ms (10 second) CPU time limit. Asynchronous transactions have 60,000 ms (60 seconds)."
+    },
+    {
+      "id": 27,
+      "topic": "Asynchronous Apex",
+      "question": "Which asynchronous method should be used to process large data volumes that exceed governor limits?",
+      "options": [
+        "A. @future",
+        "B. Queueable",
+        "C. Batch Apex",
+        "D. Scheduled Apex"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Batch Apex is designed for processing large data sets by breaking them into manageable chunks (up to 2,000 records per batch by default). Each batch gets fresh governor limits."
+    },
+    {
+      "id": 28,
+      "topic": "Asynchronous Apex",
+      "question": "What is a limitation of @future methods?",
+      "options": [
+        "A. Cannot accept sObject parameters directly",
+        "B. Cannot make callouts",
+        "C. Cannot be called from triggers",
+        "D. Cannot update records"
+      ],
+      "correctAnswer": "A",
+      "explanation": "@future methods cannot accept sObjects as parameters because the sObject might change between when the method is called and when it executes. Pass IDs instead and re-query."
+    },
+    {
+      "id": 29,
+      "topic": "Asynchronous Apex",
+      "question": "Which interface must a class implement to be used with System.enqueueJob()?",
+      "options": [
+        "A. Schedulable",
+        "B. Batchable",
+        "C. Queueable",
+        "D. Callable"
+      ],
+      "correctAnswer": "C",
+      "explanation": "The Queueable interface is required for System.enqueueJob(). Queueable jobs can chain to other Queueable jobs, accept complex parameters, and monitor job status."
+    },
+    {
+      "id": 30,
+      "topic": "Asynchronous Apex",
+      "question": "How many times can a Queueable job chain to another Queueable job in a single transaction?",
+      "options": [
+        "A. 1",
+        "B. 5",
+        "C. 50",
+        "D. Unlimited (but only 1 from a test context)"
+      ],
+      "correctAnswer": "A",
+      "explanation": "A Queueable job can enqueue only one additional Queueable job. In test context with Test.stopTest(), only one level of chaining is allowed."
+    },
+    {
+      "id": 31,
+      "topic": "Batch Apex",
+      "question": "Which methods must be implemented in a Batch Apex class?",
+      "options": [
+        "A. start(), execute(), finish()",
+        "B. init(), process(), complete()",
+        "C. begin(), run(), end()",
+        "D. setup(), execute(), teardown()"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Batch Apex requires implementing the Database.Batchable interface with start() (returns scope), execute() (processes each batch), and finish() (cleanup/notification)."
+    },
+    {
+      "id": 32,
+      "topic": "Batch Apex",
+      "question": "What does Database.Stateful do in a Batch class?",
+      "options": [
+        "A. Makes the batch run faster",
+        "B. Maintains instance variable values across batch executions",
+        "C. Enables parallel processing",
+        "D. Allows the batch to query more records"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Database.Stateful maintains instance variable state across execute() calls. Without it, variables reset to their initial values for each batch. Use carefully as it can impact performance."
+    },
+    {
+      "id": 33,
+      "topic": "Visualforce",
+      "question": "Which tag is used to display the value of an Apex variable in Visualforce?",
+      "options": [
+        "A. <apex:value>",
+        "B. <apex:outputText>",
+        "C. <apex:display>",
+        "D. <apex:variable>"
+      ],
+      "correctAnswer": "B",
+      "explanation": "<apex:outputText value=\"{!variableName}\"/> displays controller values in Visualforce. You can also use merge fields directly: {!variableName}."
+    },
+    {
+      "id": 34,
+      "topic": "Visualforce",
+      "question": "What is the purpose of the 'rerender' attribute in Visualforce?",
+      "options": [
+        "A. To refresh the entire page",
+        "B. To partially refresh specific components via AJAX",
+        "C. To render components conditionally",
+        "D. To improve page performance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The rerender attribute performs partial page refresh using AJAX, updating only the specified components without reloading the entire page. This improves user experience."
+    },
+    {
+      "id": 35,
+      "topic": "Visualforce",
+      "question": "How do you pass a parameter to a controller method from Visualforce?",
+      "options": [
+        "A. <apex:param>",
+        "B. <apex:parameter>",
+        "C. <apex:actionParam>",
+        "D. <apex:commandParam>"
+      ],
+      "correctAnswer": "A",
+      "explanation": "<apex:param> passes values to controller methods. It's used inside action components like <apex:commandButton> to set controller properties before the action executes."
+    },
+    {
+      "id": 36,
+      "topic": "Visualforce",
+      "question": "What is a Standard Controller in Visualforce?",
+      "options": [
+        "A. A custom Apex class that extends StandardController",
+        "B. Built-in controller that provides default functionality for a single record",
+        "C. A JavaScript controller for Lightning components",
+        "D. The default controller for all Visualforce pages"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Standard Controllers provide default CRUD functionality for a single sObject record. They require no Apex code and are specified using standardController=\"ObjectName\" in the page."
+    },
+    {
+      "id": 37,
+      "topic": "Lightning Web Components",
+      "question": "Which file is required in every Lightning Web Component?",
+      "options": [
+        "A. component.js and component.html",
+        "B. controller.js and helper.js",
+        "C. componentName.js only",
+        "D. componentName.js and componentName.html"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Only the JavaScript file (componentName.js) is required. The HTML template and CSS files are optional (defaults are used if not present)."
+    },
+    {
+      "id": 38,
+      "topic": "Lightning Web Components",
+      "question": "Which decorator makes a property available for use in the component's HTML template?",
+      "options": [
+        "A. @api",
+        "B. @track",
+        "C. @wire",
+        "D. Properties are available by default"
+      ],
+      "correctAnswer": "D",
+      "explanation": "In LWC, all properties are reactive by default and available in the template. @api exposes to parent components, @track was needed in older versions for object/array reactivity, @wire connects to Salesforce data."
+    },
+    {
+      "id": 39,
+      "topic": "Lightning Web Components",
+      "question": "What is the purpose of the @wire decorator?",
+      "options": [
+        "A. To expose a property to parent components",
+        "B. To connect a component to Salesforce data or Apex methods",
+        "C. To create a bidirectional data binding",
+        "D. To make a property private"
+      ],
+      "correctAnswer": "B",
+      "explanation": "@wire declaratively connects a component to Salesforce data (like records or Apex methods). The framework handles caching and provisioning data automatically."
+    },
+    {
+      "id": 40,
+      "topic": "Lightning Web Components",
+      "question": "How do you call an Apex method imperatively from LWC?",
+      "options": [
+        "A. Use @wire decorator",
+        "B. Import the method and call it as a Promise",
+        "C. Use $A.enqueueAction()",
+        "D. Use apex.call()"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Import the Apex method using import methodName from '@salesforce/apex/ClassName.methodName', then call it as a function that returns a Promise. Use .then()/.catch() or async/await."
+    },
+    {
+      "id": 41,
+      "topic": "Lightning Web Components",
+      "question": "Which directive is used to iterate over an array in LWC HTML?",
+      "options": [
+        "A. <aura:iteration>",
+        "B. <for:each>",
+        "C. <template for:each>",
+        "D. <lightning:forEach>"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Use <template for:each={array} for:item=\"item\"> to iterate. Each item must have a unique key attribute for efficient DOM updates."
+    },
+    {
+      "id": 42,
+      "topic": "Data Modeling",
+      "question": "What happens to child records when a parent record in a Master-Detail relationship is deleted?",
+      "options": [
+        "A. Child records are also deleted (cascade delete)",
+        "B. Child records are orphaned",
+        "C. Deletion is blocked",
+        "D. Child records are reparented to another record"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Master-Detail relationships cascade delete - when the parent is deleted, all child records are automatically deleted. This is different from Lookup relationships."
+    },
+    {
+      "id": 43,
+      "topic": "Data Modeling",
+      "question": "Which relationship type supports roll-up summary fields?",
+      "options": [
+        "A. Lookup only",
+        "B. Master-Detail only",
+        "C. Both Lookup and Master-Detail",
+        "D. External Lookup"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Roll-up summary fields are only available on Master-Detail relationships. They aggregate data (COUNT, SUM, MIN, MAX) from child records to the parent."
+    },
+    {
+      "id": 44,
+      "topic": "Data Modeling",
+      "question": "What is the maximum number of Master-Detail relationships on a custom object?",
+      "options": [
+        "A. 1",
+        "B. 2",
+        "C. 3",
+        "D. 5"
+      ],
+      "correctAnswer": "B",
+      "explanation": "A custom object can have a maximum of 2 Master-Detail relationships. If both exist, one must be the primary (controls sharing and deletion behavior)."
+    },
+    {
+      "id": 45,
+      "topic": "Data Modeling",
+      "question": "Which field type should be used to create a many-to-many relationship?",
+      "options": [
+        "A. Multiple Lookup fields",
+        "B. Junction object with two Master-Detail relationships",
+        "C. Multi-select picklist",
+        "D. Rich text field with record IDs"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Many-to-many relationships are created using a junction object that has two Master-Detail relationships, one to each of the related objects."
+    },
+    {
+      "id": 46,
+      "topic": "Process Automation",
+      "question": "Which automation tool should be used to send an email when a record meets certain criteria?",
+      "options": [
+        "A. Workflow Rule",
+        "B. Flow",
+        "C. Apex Trigger",
+        "D. All of the above can work"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Workflow Rules, Flows, and Apex Triggers can all send emails. Flows are recommended for new automation as Workflow Rules are being retired. Apex provides the most flexibility."
+    },
+    {
+      "id": 47,
+      "topic": "Process Automation",
+      "question": "What is the recommended automation tool for complex business logic in Salesforce?",
+      "options": [
+        "A. Workflow Rules",
+        "B. Process Builder",
+        "C. Flow Builder",
+        "D. Apex Triggers"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Flow Builder is Salesforce's recommended tool for automation, capable of handling complex logic without code. Workflow Rules and Process Builder are being retired in favor of Flow."
+    },
+    {
+      "id": 48,
+      "topic": "Process Automation",
+      "question": "In what order do automation tools execute when a record is saved?",
+      "options": [
+        "A. Validation → Before Triggers → After Triggers → Workflow",
+        "B. Before Triggers → Validation → After Triggers → Workflow",
+        "C. Validation → Workflow → Triggers → Process Builder",
+        "D. Before Triggers → Validation → Workflow → After Triggers"
+      ],
+      "correctAnswer": "A",
+      "explanation": "The order is: System Validation → Before Triggers → Custom Validation → After Triggers → Assignment Rules → Auto-Response Rules → Workflow Rules → Process/Flow → Escalation Rules."
+    },
+    {
+      "id": 49,
+      "topic": "Debug and Deployment",
+      "question": "Which tool should be used to view debug logs for Apex code?",
+      "options": [
+        "A. Setup > Debug Logs",
+        "B. Developer Console",
+        "C. VS Code with Salesforce Extensions",
+        "D. All of the above"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Debug logs can be viewed in Setup (Debug Logs), Developer Console, or VS Code with Salesforce Extensions. Each tool has different features for log analysis."
+    },
+    {
+      "id": 50,
+      "topic": "Debug and Deployment",
+      "question": "What is included in a Change Set?",
+      "options": [
+        "A. Metadata components only",
+        "B. Data records only",
+        "C. Both metadata and data",
+        "D. Code and configuration only"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Change Sets contain only metadata (Apex classes, triggers, objects, fields, etc.). They do not include data records. Use Data Loader or other tools for data migration."
+    },
+    {
+      "id": 51,
+      "topic": "Debug and Deployment",
+      "question": "Which deployment method supports continuous integration?",
+      "options": [
+        "A. Change Sets",
+        "B. Metadata API with SFDX",
+        "C. Package installation",
+        "D. Manual deployment"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Salesforce DX with Metadata API supports CI/CD pipelines. Change Sets are manual and don't integrate with source control or automated build systems."
+    },
+    {
+      "id": 52,
+      "topic": "Security",
+      "question": "Which keyword ensures Apex code respects field-level security?",
+      "options": [
+        "A. with sharing",
+        "B. without sharing",
+        "C. WITH SECURITY_ENFORCED",
+        "D. stripInaccessible()"
+      ],
+      "correctAnswer": "C",
+      "explanation": "WITH SECURITY_ENFORCED in SOQL enforces field and object level security. stripInaccessible() removes inaccessible fields from query results. 'with sharing' only affects record-level access."
+    },
+    {
+      "id": 53,
+      "topic": "Security",
+      "question": "What does 'with sharing' keyword do in Apex?",
+      "options": [
+        "A. Enforces field-level security",
+        "B. Enforces the running user's record-level sharing rules",
+        "C. Shares the code with other users",
+        "D. Enables sharing rules for the object"
+      ],
+      "correctAnswer": "B",
+      "explanation": "'with sharing' makes Apex code respect the current user's sharing rules (record-level security). 'without sharing' bypasses sharing rules. It does not affect field-level security."
+    },
+    {
+      "id": 54,
+      "topic": "Security",
+      "question": "How can you prevent SOQL injection in dynamic SOQL?",
+      "options": [
+        "A. Use String.escapeSingleQuotes()",
+        "B. Use bind variables",
+        "C. Use WITH SECURITY_ENFORCED",
+        "D. Both A and B"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Both escapeSingleQuotes() and bind variables prevent SOQL injection. Bind variables are preferred as they handle escaping automatically and are more secure."
+    },
+    {
+      "id": 55,
+      "topic": "Security",
+      "question": "Which permission allows a user to see all data regardless of sharing rules?",
+      "options": [
+        "A. View All Data",
+        "B. Modify All Data",
+        "C. Both A and B",
+        "D. View All Records"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Both 'View All Data' and 'Modify All Data' allow seeing all records regardless of sharing. 'Modify All Data' also allows editing and deleting all records."
+    },
+    {
+      "id": 56,
+      "topic": "Apex Classes",
+      "question": "What access modifier makes a method accessible only within the same class?",
+      "options": [
+        "A. public",
+        "B. private",
+        "C. protected",
+        "D. global"
+      ],
+      "correctAnswer": "B",
+      "explanation": "private methods are only accessible within the declaring class. protected allows access in the class and its subclasses. public allows access from any Apex in the same namespace."
+    },
+    {
+      "id": 57,
+      "topic": "Apex Classes",
+      "question": "What is required for an Apex class to be used as a REST web service?",
+      "options": [
+        "A. @RestResource annotation and global class",
+        "B. @HttpGet annotation only",
+        "C. Implementing the Callable interface",
+        "D. @WebService annotation"
+      ],
+      "correctAnswer": "A",
+      "explanation": "@RestResource annotation with a urlMapping is required on the class, and the class must be global. Methods use @HttpGet, @HttpPost, etc. annotations."
+    },
+    {
+      "id": 58,
+      "topic": "Apex Classes",
+      "question": "What is the purpose of the virtual keyword in Apex?",
+      "options": [
+        "A. Makes the class abstract",
+        "B. Allows the class or method to be extended/overridden",
+        "C. Creates a static instance",
+        "D. Enables interface implementation"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The virtual keyword allows a class to be extended or a method to be overridden in a subclass. Without virtual, classes cannot be extended and methods cannot be overridden."
+    },
+    {
+      "id": 59,
+      "topic": "Apex Classes",
+      "question": "Which statement about interfaces in Apex is TRUE?",
+      "options": [
+        "A. Interfaces can contain method implementations",
+        "B. A class can implement multiple interfaces",
+        "C. Interfaces can have private methods",
+        "D. Interfaces must have the global access modifier"
+      ],
+      "correctAnswer": "B",
+      "explanation": "A class can implement multiple interfaces. Interfaces only contain method signatures (no implementations), all methods are implicitly public, and interfaces can be public or global."
+    },
+    {
+      "id": 60,
+      "topic": "Apex Classes",
+      "question": "What happens when an Apex class with a scheduled job is modified?",
+      "options": [
+        "A. The scheduled job continues with the old code",
+        "B. The scheduled job automatically uses the new code",
+        "C. The scheduled job must be deleted and recreated",
+        "D. An error occurs"
+      ],
+      "correctAnswer": "C",
+      "explanation": "If you modify a class that has scheduled jobs, you must delete the scheduled jobs before saving. After saving, you can reschedule the jobs."
+    },
+    {
+      "id": 61,
+      "topic": "Exception Handling",
+      "question": "Which exception type should be caught to handle all DML failures?",
+      "options": [
+        "A. System.DmlException",
+        "B. Database.DMLException",
+        "C. DMLException",
+        "D. All of the above are the same"
+      ],
+      "correctAnswer": "C",
+      "explanation": "DMLException (or System.DmlException - they're the same) catches all DML operation failures including validation errors, required field violations, and trigger exceptions."
+    },
+    {
+      "id": 62,
+      "topic": "Exception Handling",
+      "question": "What is the difference between Database.insert() and insert DML?",
+      "options": [
+        "A. No difference",
+        "B. Database.insert() can do partial success with allOrNone=false",
+        "C. Database.insert() is faster",
+        "D. insert DML supports more records"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Database.insert(records, false) allows partial success - successful records are inserted while failures are returned in the SaveResult array. Standard DML is all-or-nothing."
+    },
+    {
+      "id": 63,
+      "topic": "Exception Handling",
+      "question": "How do you add a custom error message to a record in a trigger?",
+      "options": [
+        "A. throw new CustomException('message')",
+        "B. record.addError('message')",
+        "C. System.error('message')",
+        "D. ApexPages.addMessage()"
+      ],
+      "correctAnswer": "B",
+      "explanation": "record.addError('message') adds a validation error to a specific record in a trigger. This prevents the record from being saved and displays the message to the user."
+    },
+    {
+      "id": 64,
+      "topic": "Exception Handling",
+      "question": "What is the purpose of a try-catch-finally block?",
+      "options": [
+        "A. try executes code, catch handles errors, finally always runs",
+        "B. try starts a transaction, catch rolls it back",
+        "C. try tests code, catch logs errors, finally commits",
+        "D. try runs synchronously, catch runs asynchronously"
+      ],
+      "correctAnswer": "A",
+      "explanation": "try contains code that might throw exceptions, catch handles specific exception types, and finally always executes regardless of whether an exception occurred (cleanup code)."
+    },
+    {
+      "id": 65,
+      "topic": "Schema and Metadata",
+      "question": "How do you get the describe information for an SObject dynamically?",
+      "options": [
+        "A. Schema.getGlobalDescribe().get('Account').getDescribe()",
+        "B. Account.sObjectType.getDescribe()",
+        "C. Schema.describeSObjects(new String[]{'Account'})",
+        "D. All of the above"
+      ],
+      "correctAnswer": "D",
+      "explanation": "All three methods work for getting describe information. getGlobalDescribe() is useful when the object name is dynamic. The static approach works when the object is known at compile time."
+    },
+    {
+      "id": 66,
+      "topic": "Schema and Metadata",
+      "question": "Which method returns all picklist values for a field?",
+      "options": [
+        "A. field.getPicklistValues()",
+        "B. Schema.DescribeFieldResult.getPicklistValues()",
+        "C. Account.Industry.getDescribe().getPicklistValues()",
+        "D. getPicklistValuesInfo()"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Use fieldDescribeResult.getPicklistValues() which returns a List<Schema.PicklistEntry>. This includes both active and inactive values; filter by isActive() if needed."
+    },
+    {
+      "id": 67,
+      "topic": "Schema and Metadata",
+      "question": "How do you create a dynamic SOQL query in Apex?",
+      "options": [
+        "A. Database.query(queryString)",
+        "B. SOQL.execute(queryString)",
+        "C. new Query(queryString).execute()",
+        "D. Soql.query(queryString)"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Database.query() executes a dynamic SOQL query string. Be careful with user input to prevent SOQL injection - use bind variables or escapeSingleQuotes()."
+    },
+    {
+      "id": 68,
+      "topic": "Schema and Metadata",
+      "question": "What does Schema.SObjectField represent?",
+      "options": [
+        "A. A field value on a record",
+        "B. A token representing a field at compile time",
+        "C. The describe information for a field",
+        "D. A field on a page layout"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Schema.SObjectField is a token (reference) to a field, checked at compile time. Use it with describe methods or to reference fields dynamically. Account.Name returns a Schema.SObjectField."
+    },
+    {
+      "id": 69,
+      "topic": "Callouts",
+      "question": "What must be done before making an HTTP callout from Apex?",
+      "options": [
+        "A. Add the endpoint to Remote Site Settings",
+        "B. Enable API access in the profile",
+        "C. Create a Connected App",
+        "D. Configure Named Credentials"
+      ],
+      "correctAnswer": "A",
+      "explanation": "The endpoint domain must be added to Remote Site Settings (or use Named Credentials which is preferred). This is a security measure to prevent unauthorized external communication."
+    },
+    {
+      "id": 70,
+      "topic": "Callouts",
+      "question": "Why can't you make a callout from a trigger synchronously?",
+      "options": [
+        "A. Triggers don't support HTTP classes",
+        "B. Callouts hold database locks too long",
+        "C. Callouts are not allowed in trigger context - use @future or Queueable",
+        "D. There's no reason - callouts work in triggers"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Callouts are not allowed in trigger context because they would hold locks on records. Use @future(callout=true) or Queueable to make callouts asynchronously from triggers."
+    },
+    {
+      "id": 71,
+      "topic": "Callouts",
+      "question": "What is the timeout limit for HTTP callouts in Apex?",
+      "options": [
+        "A. 10 seconds",
+        "B. 60 seconds",
+        "C. 120 seconds",
+        "D. 180 seconds"
+      ],
+      "correctAnswer": "C",
+      "explanation": "The maximum timeout for a single HTTP callout is 120 seconds. The total callout time in a transaction is also limited. Set timeout using req.setTimeout(milliseconds)."
+    },
+    {
+      "id": 72,
+      "topic": "Callouts",
+      "question": "Which class is used to make REST API callouts in Apex?",
+      "options": [
+        "A. HttpClient",
+        "B. RestClient",
+        "C. Http, HttpRequest, HttpResponse",
+        "D. WebServiceClient"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Use Http class to send requests, HttpRequest to build the request (method, endpoint, headers, body), and HttpResponse to handle the response."
+    },
+    {
+      "id": 73,
+      "topic": "Platform Events",
+      "question": "Which method publishes a platform event in Apex?",
+      "options": [
+        "A. insert eventRecord",
+        "B. EventBus.publish(eventRecord)",
+        "C. Event.fire(eventRecord)",
+        "D. Both A and B"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Platform events can be published using standard DML (insert) or EventBus.publish(). EventBus.publish() provides more control and returns PublishResult for error handling."
+    },
+    {
+      "id": 74,
+      "topic": "Platform Events",
+      "question": "What happens when a platform event subscriber fails?",
+      "options": [
+        "A. The event is lost",
+        "B. The publisher transaction is rolled back",
+        "C. The event is retried automatically",
+        "D. An email is sent to the admin"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Platform event triggers retry automatically on certain failures. The publisher transaction is independent - it commits even if subscribers fail. Events persist for 72 hours for replay."
+    },
+    {
+      "id": 75,
+      "topic": "Platform Events",
+      "question": "Which statement about platform events is TRUE?",
+      "options": [
+        "A. They support before triggers",
+        "B. They can be rolled back with DML",
+        "C. They're published asynchronously by default",
+        "D. They count against SOQL limits"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Platform events are published asynchronously (fire-and-forget by default), only support after insert triggers, cannot be rolled back once published, and don't count against SOQL limits."
+    },
+    {
+      "id": 76,
+      "topic": "Custom Metadata",
+      "question": "What is an advantage of Custom Metadata Types over Custom Settings?",
+      "options": [
+        "A. Can be queried with SOQL",
+        "B. Can be deployed using change sets and packages",
+        "C. Supports more data types",
+        "D. Better performance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Custom Metadata Types are deployable via metadata API, change sets, and packages. Custom Settings data requires data migration. Both support SOQL queries."
+    },
+    {
+      "id": 77,
+      "topic": "Custom Metadata",
+      "question": "How do you access Custom Metadata records in Apex?",
+      "options": [
+        "A. CustomMetadataType__mdt.getInstance('DeveloperName')",
+        "B. SOQL: SELECT Id FROM CustomMetadataType__mdt",
+        "C. CustomMetadataType__mdt.getAll()",
+        "D. All of the above"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Custom Metadata can be accessed via getInstance() for single records, getAll() for all records (cached), or SOQL queries. getInstance() and getAll() don't count against SOQL limits."
+    },
+    {
+      "id": 78,
+      "topic": "Custom Settings",
+      "question": "What type of Custom Setting provides organization-wide default values?",
+      "options": [
+        "A. List Custom Setting",
+        "B. Hierarchy Custom Setting",
+        "C. Global Custom Setting",
+        "D. Default Custom Setting"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Hierarchy Custom Settings support organization-wide defaults that can be overridden at Profile and User levels. List Custom Settings store multiple records accessed by name."
+    },
+    {
+      "id": 79,
+      "topic": "Custom Settings",
+      "question": "Which method retrieves a Hierarchy Custom Setting value for the current user?",
+      "options": [
+        "A. CustomSetting__c.getInstance()",
+        "B. CustomSetting__c.getOrgDefaults()",
+        "C. CustomSetting__c.getInstance(UserInfo.getUserId())",
+        "D. CustomSetting__c.getValues()"
+      ],
+      "correctAnswer": "A",
+      "explanation": "getInstance() with no parameters returns the setting for the current user, falling back to Profile default, then Org default. getOrgDefaults() returns only org-level settings."
+    },
+    {
+      "id": 80,
+      "topic": "Lightning Aura Components",
+      "question": "Which file contains the JavaScript logic for an Aura component?",
+      "options": [
+        "A. component.js",
+        "B. controller.js",
+        "C. helper.js",
+        "D. Both B and C"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Aura components use controller.js for action handlers (called from component markup) and helper.js for reusable logic. Controller functions typically delegate to helper functions."
+    },
+    {
+      "id": 81,
+      "topic": "Lightning Aura Components",
+      "question": "How do you call an Apex method from an Aura component?",
+      "options": [
+        "A. Use @wire decorator",
+        "B. Create and enqueue an Action using $A.enqueueAction()",
+        "C. Import and call directly",
+        "D. Use lightning:apex component"
+      ],
+      "correctAnswer": "B",
+      "explanation": "In Aura, create an action with component.get('c.apexMethod'), set parameters with action.setParams(), set callbacks, and enqueue with $A.enqueueAction(action)."
+    },
+    {
+      "id": 82,
+      "topic": "Lightning Aura Components",
+      "question": "What is the purpose of the aura:id attribute?",
+      "options": [
+        "A. To identify the component uniquely in the DOM",
+        "B. To reference the component in JavaScript using component.find()",
+        "C. To set the component's API name",
+        "D. To create a unique identifier for caching"
+      ],
+      "correctAnswer": "B",
+      "explanation": "aura:id provides a local identifier to reference the component in JavaScript using component.find('auraId'). It's different from the DOM id and is used for component manipulation."
+    },
+    {
+      "id": 83,
+      "topic": "Apex Best Practices",
+      "question": "What is the most important principle for writing efficient trigger code?",
+      "options": [
+        "A. Use as many queries as needed for readability",
+        "B. Process one record at a time for clarity",
+        "C. Bulkify code to handle up to 200 records",
+        "D. Use after triggers exclusively"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Bulkification is essential - triggers can receive up to 200 records at once. Avoid SOQL/DML in loops, use collections, and process all records together to stay within governor limits."
+    },
+    {
+      "id": 84,
+      "topic": "Apex Best Practices",
+      "question": "Why should you use a single trigger per object?",
+      "options": [
+        "A. Salesforce only allows one trigger per object",
+        "B. Multiple triggers execute in random order",
+        "C. It improves code organization and execution control",
+        "D. Multiple triggers cause recursion"
+      ],
+      "correctAnswer": "C",
+      "explanation": "While multiple triggers are allowed, they execute in unpredictable order. A single trigger calling a handler class provides controlled execution order and better code organization."
+    },
+    {
+      "id": 85,
+      "topic": "Apex Best Practices",
+      "question": "What is the recommended pattern for organizing trigger logic?",
+      "options": [
+        "A. Put all logic directly in the trigger",
+        "B. Use a trigger handler pattern with separate handler class",
+        "C. Use only workflow rules instead of triggers",
+        "D. Split logic across multiple triggers"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The trigger handler pattern separates the trigger definition from the logic. The trigger calls handler methods for each context (before insert, after update, etc.), improving testability and maintainability."
+    },
+    {
+      "id": 86,
+      "topic": "Apex Best Practices",
+      "question": "How should you handle null values when accessing related records in SOQL?",
+      "options": [
+        "A. Always use try-catch",
+        "B. Check for null before accessing",
+        "C. Use the safe navigation operator (?.) or null checks",
+        "D. Null values don't occur in SOQL results"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Use the safe navigation operator (record?.ParentRelationship?.Field) or explicit null checks to prevent NullPointerException when relationship fields might be null."
+    },
+    {
+      "id": 87,
+      "topic": "SOQL Advanced",
+      "question": "What is the purpose of SOQL aggregate functions?",
+      "options": [
+        "A. To combine multiple queries",
+        "B. To calculate values like COUNT, SUM, AVG across records",
+        "C. To join multiple objects",
+        "D. To improve query performance"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Aggregate functions (COUNT, SUM, AVG, MIN, MAX) calculate values across a set of records. Results are returned as AggregateResult objects with get('alias') to access values."
+    },
+    {
+      "id": 88,
+      "topic": "SOQL Advanced",
+      "question": "Which clause is required when using aggregate functions with non-aggregated fields?",
+      "options": [
+        "A. ORDER BY",
+        "B. HAVING",
+        "C. GROUP BY",
+        "D. LIMIT"
+      ],
+      "correctAnswer": "C",
+      "explanation": "GROUP BY is required when selecting non-aggregated fields with aggregate functions. It groups records by the specified fields before applying aggregate calculations."
+    },
+    {
+      "id": 89,
+      "topic": "SOQL Advanced",
+      "question": "What does the TYPEOF clause do in SOQL?",
+      "options": [
+        "A. Filters records by their type",
+        "B. Returns different fields based on the polymorphic relationship type",
+        "C. Converts field values to a specified type",
+        "D. Determines the object type at runtime"
+      ],
+      "correctAnswer": "B",
+      "explanation": "TYPEOF handles polymorphic relationships (like Task.What or Event.Who) by specifying which fields to return for each possible related object type."
+    },
+    {
+      "id": 90,
+      "topic": "SOQL Advanced",
+      "question": "What is the purpose of the OFFSET clause in SOQL?",
+      "options": [
+        "A. To skip a specified number of rows",
+        "B. To adjust date/time values",
+        "C. To start the query at a specific ID",
+        "D. To improve query performance"
+      ],
+      "correctAnswer": "A",
+      "explanation": "OFFSET skips the specified number of rows before returning results. Use with LIMIT for pagination. Maximum OFFSET is 2,000. For large datasets, use queryMore() instead."
+    },
+    {
+      "id": 91,
+      "topic": "Flows",
+      "question": "Which Flow type runs automatically when a record is created or updated?",
+      "options": [
+        "A. Screen Flow",
+        "B. Record-Triggered Flow",
+        "C. Scheduled Flow",
+        "D. Autolaunched Flow"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Record-Triggered Flows run automatically when records are created, updated, or deleted. They replace Process Builder and Workflow Rules in Salesforce's automation strategy."
+    },
+    {
+      "id": 92,
+      "topic": "Flows",
+      "question": "How do you call an Apex method from a Flow?",
+      "options": [
+        "A. Use an Apex Action element",
+        "B. Call the method directly in a Formula",
+        "C. Use the @InvocableMethod annotation in Apex",
+        "D. Both A and C"
+      ],
+      "correctAnswer": "D",
+      "explanation": "The Apex method must have @InvocableMethod annotation to be callable from Flow. In Flow, use the Action element to call the invocable method."
+    },
+    {
+      "id": 93,
+      "topic": "Flows",
+      "question": "What is the purpose of the $Record variable in a Record-Triggered Flow?",
+      "options": [
+        "A. To store the first record in a collection",
+        "B. To reference the record that triggered the flow",
+        "C. To access related records",
+        "D. To store query results"
+      ],
+      "correctAnswer": "B",
+      "explanation": "$Record contains the triggering record's field values. In update triggers, $Record__Prior contains the values before the update for comparison."
+    },
+    {
+      "id": 94,
+      "topic": "Flows",
+      "question": "Which resource type should be used to store multiple records in a Flow?",
+      "options": [
+        "A. Variable",
+        "B. Collection Variable",
+        "C. Record Variable",
+        "D. Array Variable"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Collection Variables store multiple values of the same type, similar to a List in Apex. They're used for loops, storing query results, and bulk DML operations."
+    },
+    {
+      "id": 95,
+      "topic": "Data Management",
+      "question": "What is the maximum number of records that can be inserted in a single DML statement?",
+      "options": [
+        "A. 200",
+        "B. 1,000",
+        "C. 10,000",
+        "D. No limit per statement, but 10,000 per transaction"
+      ],
+      "correctAnswer": "D",
+      "explanation": "A single DML statement can process any number of records, but the total across all DML statements in a transaction is limited to 10,000 records."
+    },
+    {
+      "id": 96,
+      "topic": "Data Management",
+      "question": "Which tool should be used to delete millions of records?",
+      "options": [
+        "A. Data Loader",
+        "B. Batch Apex",
+        "C. Anonymous Apex",
+        "D. Both A and B depending on requirements"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Data Loader with bulk API handles large deletes. Batch Apex is useful when business logic or conditions are involved. Anonymous Apex is limited by governor limits."
+    },
+    {
+      "id": 97,
+      "topic": "Data Management",
+      "question": "What is an External ID field used for?",
+      "options": [
+        "A. To link to external systems",
+        "B. To perform upserts using a custom unique identifier",
+        "C. To store external database keys",
+        "D. All of the above"
+      ],
+      "correctAnswer": "D",
+      "explanation": "External IDs are custom fields marked as External ID, used to identify records from external systems. They enable upserts using the external ID instead of Salesforce ID and are indexed for fast lookups."
+    },
+    {
+      "id": 98,
+      "topic": "Data Management",
+      "question": "What does the upsert operation do?",
+      "options": [
+        "A. Updates all records",
+        "B. Inserts all records",
+        "C. Updates existing records and inserts new ones",
+        "D. Deletes duplicate records"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Upsert uses a key field (ID or External ID) to determine if a record exists. Existing records are updated, new records are inserted. It's useful for data synchronization."
+    },
+    {
+      "id": 99,
+      "topic": "Permissions",
+      "question": "What is the difference between a Profile and a Permission Set?",
+      "options": [
+        "A. Profiles can only restrict access, Permission Sets grant access",
+        "B. Users can have one Profile but multiple Permission Sets",
+        "C. Permission Sets are more powerful than Profiles",
+        "D. They serve the same purpose"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Users are assigned exactly one Profile (required) but can have multiple Permission Sets (optional). Permission Sets extend permissions without creating new profiles for every combination."
+    },
+    {
+      "id": 100,
+      "topic": "Permissions",
+      "question": "Which permission is required to deploy Apex code to production?",
+      "options": [
+        "A. Modify All Data",
+        "B. Author Apex",
+        "C. Customize Application",
+        "D. Deploy Change Sets (via Change Set deployment) or Modify Metadata (via API)"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Deploying Apex requires appropriate deployment permissions. Change Set deployment uses 'Deploy Change Sets'. Metadata API deployment requires 'Modify Metadata Through Metadata API Functions'."
+    }
+  ]
+}
