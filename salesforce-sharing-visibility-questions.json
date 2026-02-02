@@ -1,0 +1,1306 @@
+{
+  "exam": "Salesforce Sharing and Visibility Designer",
+  "version": "2025",
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Org-Wide Defaults",
+      "question": "A company has a private OWD for Opportunities. Sales reps should only see their own opportunities, but sales managers need to see all opportunities owned by reps in their region. What is the most efficient solution?",
+      "options": [
+        "A. Create criteria-based sharing rules for each region",
+        "B. Use role hierarchy with managers above their regional reps",
+        "C. Create public groups and owner-based sharing rules",
+        "D. Use Apex managed sharing with a custom reason"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Role hierarchy is the most efficient and maintainable solution. Users automatically gain read access to records owned by users below them in the hierarchy when OWD is Private. This requires no additional configuration beyond proper role assignment."
+    },
+    {
+      "id": 2,
+      "topic": "Sharing Rules",
+      "question": "Which statement about criteria-based sharing rules is TRUE?",
+      "options": [
+        "A. They can share records based on the record owner's role",
+        "B. They can grant Full Access (Read/Write/Delete)",
+        "C. They can be used with any field type including formula fields",
+        "D. They evaluate record field values to determine sharing"
+      ],
+      "correctAnswer": "D",
+      "explanation": "Criteria-based sharing rules share records based on field values in the record (e.g., Region__c = 'West'). They cannot reference owner information (that's owner-based rules), cannot grant delete access, and have limitations on supported field types."
+    },
+    {
+      "id": 3,
+      "topic": "Implicit Sharing",
+      "question": "A user owns a Contact but cannot see the parent Account. What type of access does the user have to the Account?",
+      "options": [
+        "A. No access",
+        "B. Read-only access through parent implicit sharing",
+        "C. Read-only access through child implicit sharing",
+        "D. Read/Write access through implicit sharing"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Child implicit sharing grants Read-only access to a parent Account when a user owns a related Contact or Opportunity. This ensures users can always see the context for records they own."
+    },
+    {
+      "id": 4,
+      "topic": "Teams",
+      "question": "A company wants to allow Account owners to share their accounts with specific colleagues on a case-by-case basis. The sharing should persist even if the Account owner changes. What should be implemented?",
+      "options": [
+        "A. Account Teams",
+        "B. Manual Sharing",
+        "C. Apex Managed Sharing",
+        "D. Public Groups with Sharing Rules"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Apex Managed Sharing persists regardless of owner changes when using a custom Apex sharing reason. Account Teams and Manual Sharing are both deleted when ownership changes. Public Groups with Sharing Rules wouldn't provide case-by-case flexibility."
+    },
+    {
+      "id": 5,
+      "topic": "Territory Management",
+      "question": "Which object does Enterprise Territory Management primarily use to assign records to territories?",
+      "options": [
+        "A. Account",
+        "B. Opportunity",
+        "C. Lead",
+        "D. Contact"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Enterprise Territory Management assigns Accounts to territories. Opportunities inherit territory assignment from their parent Account. Leads and Contacts are not directly assignable to territories."
+    },
+    {
+      "id": 6,
+      "topic": "Apex Managed Sharing",
+      "question": "A developer needs to create an Apex sharing record. Which object should they insert a record into for a custom object called Project__c?",
+      "options": [
+        "A. Project__Share",
+        "B. Project__c__Share",
+        "C. ProjectShare",
+        "D. Project__c.Share"
+      ],
+      "correctAnswer": "A",
+      "explanation": "The sharing object for custom objects follows the pattern ObjectName__Share (removing the __c suffix). For Project__c, the sharing object is Project__Share."
+    },
+    {
+      "id": 7,
+      "topic": "Role Hierarchy",
+      "question": "What happens when 'Grant Access Using Hierarchies' is disabled for a custom object?",
+      "options": [
+        "A. The OWD automatically changes to Private",
+        "B. Users higher in the role hierarchy lose automatic access to records below them",
+        "C. Sharing rules stop functioning for that object",
+        "D. The object cannot use manual sharing"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Disabling 'Grant Access Using Hierarchies' prevents automatic access inheritance through the role hierarchy. This is useful when sensitive data shouldn't flow up (e.g., HR records). OWD, sharing rules, and manual sharing continue to function normally."
+    },
+    {
+      "id": 8,
+      "topic": "Sharing Architecture",
+      "question": "A company has 50 million Account records. Running sharing rule recalculation is taking too long. Which approach would help?",
+      "options": [
+        "A. Convert criteria-based sharing rules to owner-based sharing rules",
+        "B. Add more sharing rules to distribute the load",
+        "C. Defer sharing calculations and run them during off-peak hours",
+        "D. Change OWD from Private to Public Read Only"
+      ],
+      "correctAnswer": "C",
+      "explanation": "For large data volumes, deferring sharing calculations allows batch processing during off-peak hours. Owner-based rules don't necessarily perform better than criteria-based. Adding more rules increases calculation time. Changing OWD might not meet security requirements."
+    },
+    {
+      "id": 9,
+      "topic": "Groups",
+      "question": "Which type of group can contain other groups as members?",
+      "options": [
+        "A. Public Groups only",
+        "B. Queues only",
+        "C. Both Public Groups and Queues",
+        "D. Neither Public Groups nor Queues"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Both Public Groups and Queues can contain other Public Groups as members, allowing for nested group structures. This enables flexible, hierarchical sharing configurations."
+    },
+    {
+      "id": 10,
+      "topic": "Manual Sharing",
+      "question": "When is manual sharing automatically deleted?",
+      "options": [
+        "A. When the record owner's role changes",
+        "B. When the record owner changes",
+        "C. When sharing rules are recalculated",
+        "D. When the shared user is deactivated"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Manual sharing records are automatically deleted when record ownership changes. This is important for maintaining data security and is a key consideration when designing sharing models."
+    },
+    {
+      "id": 11,
+      "topic": "OWD Settings",
+      "question": "Which OWD setting provides Read access to all users but restricts Edit and Delete to owners and users higher in the hierarchy?",
+      "options": [
+        "A. Private",
+        "B. Public Read Only",
+        "C. Public Read/Write",
+        "D. Controlled by Parent"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Public Read Only allows all users to view records but only owners (and those above them in the hierarchy, if enabled) can edit. Public Read/Write would also grant edit access to everyone."
+    },
+    {
+      "id": 12,
+      "topic": "Controlled by Parent",
+      "question": "Which objects can have their OWD set to 'Controlled by Parent'?",
+      "options": [
+        "A. Any object with a lookup relationship",
+        "B. Only objects with a master-detail relationship",
+        "C. Any custom object",
+        "D. Only Contact and Opportunity"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Only objects on the detail side of a master-detail relationship can use 'Controlled by Parent' OWD. The child object inherits sharing from the master object."
+    },
+    {
+      "id": 13,
+      "topic": "Sharing Troubleshooting",
+      "question": "A user reports they cannot see a record they should have access to. Which tool should be used first to diagnose the issue?",
+      "options": [
+        "A. Debug Logs",
+        "B. Sharing Hierarchy button on the record",
+        "C. Login As the user",
+        "D. SOQL query on Share object"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The Sharing Hierarchy button (or Sharing button) on a record shows why users have access and at what level. This is the fastest way to diagnose sharing issues without technical queries."
+    },
+    {
+      "id": 14,
+      "topic": "Apex Sharing",
+      "question": "What is the RowCause field used for in a Share object record?",
+      "options": [
+        "A. To specify the access level (Read/Edit)",
+        "B. To identify why the sharing record exists",
+        "C. To link to the parent record",
+        "D. To set the sharing expiration date"
+      ],
+      "correctAnswer": "B",
+      "explanation": "RowCause indicates why a sharing record exists (e.g., 'Owner', 'Rule', 'Manual', or custom Apex sharing reasons). This helps administrators understand and troubleshoot sharing."
+    },
+    {
+      "id": 15,
+      "topic": "Large Data Volume",
+      "question": "Which sharing approach performs best with very large data volumes (100M+ records)?",
+      "options": [
+        "A. Criteria-based sharing rules",
+        "B. Owner-based sharing rules",
+        "C. Programmatic sharing with Apex",
+        "D. Public Read Only OWD with restricted profiles"
+      ],
+      "correctAnswer": "D",
+      "explanation": "With very large data volumes, opening up OWD to Public Read Only and using profiles/permission sets to restrict access is often more performant than complex sharing rules. This reduces the number of sharing records that need to be calculated and maintained."
+    },
+    {
+      "id": 16,
+      "topic": "Sharing Sets",
+      "question": "Sharing Sets are used to grant record access to which type of users?",
+      "options": [
+        "A. Internal users based on role",
+        "B. Portal or Community users based on their account or contact",
+        "C. Guest users on public sites",
+        "D. Users in a specific public group"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Sharing Sets grant portal/community users access to records associated with their Account or Contact. They're essential for community sharing architecture."
+    },
+    {
+      "id": 17,
+      "topic": "Share Groups",
+      "question": "What is a Share Group in the context of Communities/Experience Cloud?",
+      "options": [
+        "A. A public group used in sharing rules",
+        "B. A system-generated group that includes all users who have access to a record",
+        "C. A group that allows sharing between internal users and community members",
+        "D. A group containing all portal users from one account"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Share Groups enable sharing records between internal users and external community members. They bridge the gap between internal org sharing and community access."
+    },
+    {
+      "id": 18,
+      "topic": "Super User Access",
+      "question": "What does enabling Super User Access in a community allow partner users to do?",
+      "options": [
+        "A. Access all records in the org",
+        "B. Access records owned by other partner users from the same account",
+        "C. Bypass all sharing rules",
+        "D. Grant sharing access to other users"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Super User Access allows designated partner community users to access records owned by other partner users from the same Account, without requiring additional sharing configuration."
+    },
+    {
+      "id": 19,
+      "topic": "Restriction Rules",
+      "question": "What do Restriction Rules do?",
+      "options": [
+        "A. Grant additional access to records matching criteria",
+        "B. Remove access to records matching criteria even if sharing would otherwise allow it",
+        "C. Restrict users from creating records matching criteria",
+        "D. Apply field-level security based on record values"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Restriction Rules deny access to records matching specified criteria, even if the user would otherwise have access through sharing. They 'tighten' rather than 'open' access."
+    },
+    {
+      "id": 20,
+      "topic": "Scoping Rules",
+      "question": "What is the primary purpose of Scoping Rules?",
+      "options": [
+        "A. To restrict record access for certain users",
+        "B. To grant additional record access",
+        "C. To filter the default records shown in list views and searches",
+        "D. To define which records trigger automation"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Scoping Rules filter which records appear by default in list views, lookups, and searches without affecting actual record access. Users can still access records outside their scope via direct links."
+    },
+    {
+      "id": 21,
+      "topic": "Implicit Sharing",
+      "question": "Which scenario describes parent implicit sharing?",
+      "options": [
+        "A. A Contact owner gets Read access to the parent Account",
+        "B. An Account owner gets Read access to child Opportunities",
+        "C. An Opportunity owner gets Read access to OpportunityLineItems",
+        "D. A Case owner gets Read access to child CaseComments"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Parent implicit sharing grants the Account owner Read access to child Opportunities and Cases. Child implicit sharing is the reverse - Contact/Opportunity owners get Read access to the parent Account."
+    },
+    {
+      "id": 22,
+      "topic": "Sharing Rule Limits",
+      "question": "What is the combined limit for owner-based and criteria-based sharing rules per object?",
+      "options": [
+        "A. 50",
+        "B. 100",
+        "C. 300",
+        "D. 500"
+      ],
+      "correctAnswer": "C",
+      "explanation": "The limit is 300 total sharing rules per object (owner-based + criteria-based combined). This is an important consideration when designing complex sharing models."
+    },
+    {
+      "id": 23,
+      "topic": "Account Teams",
+      "question": "What happens to Account Team members' access when the Account owner changes?",
+      "options": [
+        "A. Team members retain their access",
+        "B. Team members lose all access",
+        "C. Team members' access level is downgraded to Read Only",
+        "D. Team membership is transferred to the new owner's default team"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Account Team sharing is deleted when Account ownership changes, similar to manual sharing. The new owner must recreate the team if needed."
+    },
+    {
+      "id": 24,
+      "topic": "View All / Modify All",
+      "question": "A user has 'View All' permission for Accounts. Which statement is TRUE?",
+      "options": [
+        "A. They can edit all Account records",
+        "B. They can see all Account records regardless of sharing",
+        "C. They can delete all Account records",
+        "D. They can transfer ownership of all Account records"
+      ],
+      "correctAnswer": "B",
+      "explanation": "'View All' grants read access to all records of that object, bypassing sharing rules and OWD settings. It does not grant edit, delete, or transfer permissions."
+    },
+    {
+      "id": 25,
+      "topic": "Guest User Sharing",
+      "question": "Which feature was introduced to secure Guest User access to records?",
+      "options": [
+        "A. Guest User Sharing Rules",
+        "B. Secure Guest User Record Access",
+        "C. Guest User Profiles",
+        "D. Public Access Settings"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Guest User Sharing Rules were introduced to explicitly grant access to unauthenticated (guest) users. Without these rules, guest users cannot access records even if OWD is Public."
+    },
+    {
+      "id": 26,
+      "topic": "Sharing Architecture",
+      "question": "A company needs sales reps to see Accounts in their territory but not edit them, while Account executives can edit Accounts they own. What is the recommended OWD?",
+      "options": [
+        "A. Private",
+        "B. Public Read Only",
+        "C. Public Read/Write",
+        "D. Controlled by Parent"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Private OWD gives owners edit access by default. Sharing rules or Territory Management can then grant Read-only access to others (sales reps in territories). Public Read Only would give everyone read access, which may be too broad."
+    },
+    {
+      "id": 27,
+      "topic": "Apex Sharing Reason",
+      "question": "Why would you use a custom Apex Sharing Reason instead of manual sharing?",
+      "options": [
+        "A. To improve query performance",
+        "B. To prevent sharing from being deleted when ownership changes",
+        "C. To bypass OWD restrictions",
+        "D. To share records with external users"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Apex sharing with custom reasons persists through ownership changes, unlike manual sharing. This is critical when business logic requires persistent sharing regardless of owner."
+    },
+    {
+      "id": 28,
+      "topic": "External OWD",
+      "question": "What does setting an External OWD to Private while Internal OWD is Public Read Only accomplish?",
+      "options": [
+        "A. External users can see all records, internal users cannot",
+        "B. Internal users can see all records, external users need explicit sharing",
+        "C. Both internal and external users need explicit sharing",
+        "D. External users are blocked from the object entirely"
+      ],
+      "correctAnswer": "B",
+      "explanation": "External OWD can be more restrictive than Internal OWD. This allows internal users to see all records while requiring explicit sharing rules or other mechanisms for external (community) users."
+    },
+    {
+      "id": 29,
+      "topic": "Group Membership Operations",
+      "question": "A sharing rule shares Opportunities with a public group. A new user is added to the group. When will they gain access?",
+      "options": [
+        "A. Immediately upon being added",
+        "B. After the next sharing recalculation",
+        "C. After the user logs out and back in",
+        "D. After an admin manually refreshes sharing"
+      ],
+      "correctAnswer": "A",
+      "explanation": "When a user is added to a group, they immediately gain access provided by sharing rules targeting that group. No recalculation or refresh is required."
+    },
+    {
+      "id": 30,
+      "topic": "Record Access Calculation",
+      "question": "In which order does Salesforce evaluate record access?",
+      "options": [
+        "A. Profile → OWD → Sharing Rules → Role Hierarchy",
+        "B. OWD → Role Hierarchy → Sharing Rules → Manual Sharing",
+        "C. Object Permissions → OWD → Role Hierarchy → Sharing Rules → Manual/Apex Sharing",
+        "D. Sharing Rules → OWD → Profile → Role Hierarchy"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Salesforce first checks object permissions (can the user access this object at all?), then OWD sets the baseline, role hierarchy opens up access, then sharing rules, and finally manual/apex sharing. Access is cumulative - it only opens up, never restricts (except Restriction Rules)."
+    },
+    {
+      "id": 31,
+      "topic": "Field-Level Security",
+      "question": "A user has Read access to an Account via sharing but cannot see the Revenue field. What is the most likely cause?",
+      "options": [
+        "A. The sharing rule doesn't include the Revenue field",
+        "B. Field-Level Security restricts the field on their profile",
+        "C. The Account OWD is set to Private",
+        "D. The Revenue field has a validation rule"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Field-Level Security (FLS) is independent of sharing. Even if a user has record access, they cannot see fields restricted by FLS on their profile or permission sets."
+    },
+    {
+      "id": 32,
+      "topic": "High-Volume Portal Users",
+      "question": "Which sharing mechanism does NOT apply to High-Volume Customer Portal users?",
+      "options": [
+        "A. Sharing Sets",
+        "B. Share Groups",
+        "C. Role Hierarchy",
+        "D. Sharing Rules targeting their associated Account"
+      ],
+      "correctAnswer": "C",
+      "explanation": "High-Volume Portal users don't have roles and aren't in the role hierarchy. They rely on Sharing Sets, Share Groups, and specific sharing rules instead."
+    },
+    {
+      "id": 33,
+      "topic": "Opportunity Splits",
+      "question": "When Opportunity Splits are enabled, who automatically gains access to the Opportunity?",
+      "options": [
+        "A. Only users on Revenue splits",
+        "B. Only users on Overlay splits",
+        "C. All users included in any split type",
+        "D. No one gains access through splits alone"
+      ],
+      "correctAnswer": "C",
+      "explanation": "All users included in Opportunity Splits (Revenue or Overlay) automatically receive Read access to the Opportunity, which facilitates sales team collaboration."
+    },
+    {
+      "id": 34,
+      "topic": "Report and Dashboard Folders",
+      "question": "A user can see a Dashboard but cannot view the underlying report data. What should be checked?",
+      "options": [
+        "A. Dashboard folder access",
+        "B. Report folder access and record-level sharing",
+        "C. User's Salesforce license type",
+        "D. Dashboard running user settings"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Users need access to both the report folder AND the underlying records. If they lack record access, they'll see the dashboard structure but limited or no data. The dashboard's 'Run As' setting can also affect this."
+    },
+    {
+      "id": 35,
+      "topic": "Sharing Set Access Mapping",
+      "question": "In a Sharing Set, what does the Access Mapping define?",
+      "options": [
+        "A. Which profiles can use the sharing set",
+        "B. The relationship between the user's Contact/Account and the target records",
+        "C. The level of access (Read/Read-Write)",
+        "D. Which fields the user can see"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Access Mapping in a Sharing Set defines how to identify which records to share - typically by matching the portal user's Contact or Account to a field on the target object."
+    },
+    {
+      "id": 36,
+      "topic": "Data Skew",
+      "question": "What is Account Data Skew and why does it affect sharing?",
+      "options": [
+        "A. When one user owns too many Accounts",
+        "B. When one Account has too many child records like Contacts or Opportunities",
+        "C. When Account sharing rules become too complex",
+        "D. When Account OWD changes frequently"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Account Data Skew occurs when a single Account has a disproportionate number of child records. This affects sharing performance because sharing calculations must process the parent and all children together."
+    },
+    {
+      "id": 37,
+      "topic": "Ownership Data Skew",
+      "question": "Why is ownership data skew (one user owning many records) problematic for sharing?",
+      "options": [
+        "A. It makes reports run slowly",
+        "B. It causes locking issues during sharing recalculation and role hierarchy changes",
+        "C. It violates Salesforce license agreements",
+        "D. It prevents the use of sharing rules"
+      ],
+      "correctAnswer": "B",
+      "explanation": "When one user owns many records, any change affecting their sharing (role change, group membership) requires updating a huge number of sharing records, causing locks and performance issues."
+    },
+    {
+      "id": 38,
+      "topic": "Portal Account Owner",
+      "question": "What special sharing considerations apply to the portal Account owner?",
+      "options": [
+        "A. They automatically see all portal user activities",
+        "B. They receive implicit sharing to Cases created by portal users under their Account",
+        "C. They must be in the role hierarchy above portal users",
+        "D. They control portal user license allocation"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The Account owner receives implicit sharing to Cases and other records created by portal users associated with that Account, enabling them to support their portal customers."
+    },
+    {
+      "id": 39,
+      "topic": "Manager Groups",
+      "question": "What are Manager Groups used for?",
+      "options": [
+        "A. Grouping users with the Manager role",
+        "B. Enabling sharing rules based on the Manager field on User records",
+        "C. Creating groups that automatically include all managers in the company",
+        "D. Restricting record access to managers only"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Manager Groups leverage the Manager lookup field on User records to create dynamic groups. This enables sharing based on the HR reporting structure rather than the role hierarchy."
+    },
+    {
+      "id": 40,
+      "topic": "Parallel Sharing Recalculation",
+      "question": "When does Salesforce perform parallel sharing recalculation?",
+      "options": [
+        "A. Whenever a sharing rule is created",
+        "B. When Defer Sharing Calculations is disabled after bulk operations",
+        "C. During all ownership changes",
+        "D. When the admin clicks 'Recalculate' on a sharing rule"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Parallel recalculation happens when Defer Sharing Calculations is turned off after bulk data operations, processing sharing updates in parallel to catch up faster."
+    },
+    {
+      "id": 41,
+      "topic": "Territory Management",
+      "question": "In Enterprise Territory Management, what determines which users can access records assigned to a territory?",
+      "options": [
+        "A. Users must be explicitly assigned to the territory",
+        "B. Users in the same role as the territory owner",
+        "C. Users assigned to the territory or territories above it in the hierarchy",
+        "D. All users with the Territory Management permission"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Users assigned to a territory can access its records, and territory hierarchy allows users in parent territories to access records in child territories (if configured). Direct assignment is required."
+    },
+    {
+      "id": 42,
+      "topic": "Territory Management",
+      "question": "Which access levels can be granted through Enterprise Territory Management?",
+      "options": [
+        "A. Read Only or Read/Write",
+        "B. Read Only, Read/Write, or Owner",
+        "C. View, Edit, or Full Access",
+        "D. Private, Read Only, or Read/Write"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Territory Management grants either Read Only or Read/Write access to Accounts and their child Opportunities in the territory. It cannot transfer ownership or grant delete access."
+    },
+    {
+      "id": 43,
+      "topic": "Territory Management",
+      "question": "How can an Account be assigned to a Territory?",
+      "options": [
+        "A. Only through assignment rules",
+        "B. Only manually by users",
+        "C. Through assignment rules, manually, or via API",
+        "D. Only through Apex triggers"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Accounts can be assigned to territories through automatic assignment rules (based on Account field criteria), manual assignment by users, or programmatically via API/Apex."
+    },
+    {
+      "id": 44,
+      "topic": "Apex Sharing",
+      "question": "Which AccessLevel values are valid when creating an Apex sharing record?",
+      "options": [
+        "A. 'Read' and 'Edit'",
+        "B. 'Read' and 'All'",
+        "C. 'Read', 'Edit', and 'All'",
+        "D. 'Read', 'Write', and 'Full'"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Valid AccessLevel values are 'Read' (read-only) and 'Edit' (read/write). There is no 'All' or 'Full' access level for sharing records - delete access is controlled separately by profiles/permissions."
+    },
+    {
+      "id": 45,
+      "topic": "Apex Sharing",
+      "question": "A developer creates sharing records in an after insert trigger. The trigger runs successfully but users still can't see the records. What is the most likely cause?",
+      "options": [
+        "A. Sharing records must be created in a before trigger",
+        "B. The ParentId field was not set correctly",
+        "C. The sharing records were created with RowCause = 'Manual'",
+        "D. Sharing changes require a separate transaction to take effect"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The most common issue is incorrect ParentId - it must reference the record being shared. After insert is the correct trigger context for sharing. Manual row cause and same-transaction visibility are typically not issues."
+    },
+    {
+      "id": 46,
+      "topic": "Apex Sharing",
+      "question": "What happens when you try to delete an Apex sharing record with RowCause = 'Rule'?",
+      "options": [
+        "A. The record is deleted successfully",
+        "B. An error is thrown - Rule-based sharing cannot be deleted via Apex",
+        "C. The record is marked inactive but not deleted",
+        "D. The sharing rule itself is deleted"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Sharing records created by sharing rules (RowCause = 'Rule') cannot be deleted programmatically. Only Manual or custom Apex sharing reason records can be managed via Apex."
+    },
+    {
+      "id": 47,
+      "topic": "Sharing Architecture",
+      "question": "A healthcare company needs to ensure that patient records are only visible to the assigned care team, regardless of role hierarchy. Which approach is recommended?",
+      "options": [
+        "A. Private OWD with role hierarchy enabled",
+        "B. Private OWD with 'Grant Access Using Hierarchies' disabled",
+        "C. Public Read Only OWD with restriction rules",
+        "D. Controlled by Parent OWD"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Disabling 'Grant Access Using Hierarchies' prevents managers from automatically seeing sensitive records owned by their reports. Combined with Private OWD and explicit sharing (teams or Apex), this ensures strict need-to-know access."
+    },
+    {
+      "id": 48,
+      "topic": "Sharing Architecture",
+      "question": "A company has separate divisions that should never see each other's data. What is the most scalable approach?",
+      "options": [
+        "A. Create separate profiles for each division",
+        "B. Use criteria-based sharing rules with division field",
+        "C. Private OWD with owner-based sharing rules by role",
+        "D. Consider separate Salesforce orgs or use restriction rules"
+      ],
+      "correctAnswer": "D",
+      "explanation": "When divisions must be completely isolated, separate orgs provide the strongest boundary. If a single org is required, restriction rules can enforce isolation. Sharing rules alone can't guarantee complete separation."
+    },
+    {
+      "id": 49,
+      "topic": "Sharing Rules",
+      "question": "A sharing rule is created based on a picklist field value. What happens if that picklist value is later deleted?",
+      "options": [
+        "A. The sharing rule is automatically deleted",
+        "B. The sharing rule becomes inactive",
+        "C. The sharing rule remains but stops matching records",
+        "D. Records with the old value retain their sharing until edited"
+      ],
+      "correctAnswer": "C",
+      "explanation": "The sharing rule continues to exist but won't match any records since the criteria value no longer exists. Existing sharing records from before the change may persist until recalculation, but no new matches will occur."
+    },
+    {
+      "id": 50,
+      "topic": "Sharing Rules",
+      "question": "What is the maximum number of picklist values that can be selected in a single criteria-based sharing rule criterion?",
+      "options": [
+        "A. 5",
+        "B. 10",
+        "C. 25",
+        "D. Unlimited"
+      ],
+      "correctAnswer": "B",
+      "explanation": "A single criterion in a criteria-based sharing rule can include up to 10 picklist values. If more values are needed, multiple sharing rules must be created."
+    },
+    {
+      "id": 51,
+      "topic": "OWD Settings",
+      "question": "What is the relationship between Internal and External OWD settings?",
+      "options": [
+        "A. They must be set to the same value",
+        "B. External OWD can be more restrictive than or equal to Internal OWD",
+        "C. External OWD can be more permissive than Internal OWD",
+        "D. External OWD only applies when Internal OWD is Private"
+      ],
+      "correctAnswer": "B",
+      "explanation": "External OWD can be more restrictive than Internal OWD (e.g., Internal = Public Read Only, External = Private) but never more permissive. This allows tighter control over external/community user access."
+    },
+    {
+      "id": 52,
+      "topic": "OWD Settings",
+      "question": "Which standard objects support the 'Public Full Access' OWD setting?",
+      "options": [
+        "A. All standard objects",
+        "B. Only Campaign",
+        "C. Campaign and Lead",
+        "D. No standard objects - only custom objects"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Campaign is the only standard object that supports Public Full Access OWD, which allows all users to view, edit, and delete any Campaign record."
+    },
+    {
+      "id": 53,
+      "topic": "Groups",
+      "question": "What type of group is automatically created for each role in the role hierarchy?",
+      "options": [
+        "A. Public Group",
+        "B. Role Group and Role and Subordinates Group",
+        "C. Queue",
+        "D. Personal Group"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Salesforce automatically creates hidden groups for each role: a Role group (just that role's users) and a Role and Subordinates group (that role plus all roles below). These can be used in sharing rules."
+    },
+    {
+      "id": 54,
+      "topic": "Groups",
+      "question": "Which statement about Queues is TRUE?",
+      "options": [
+        "A. Queues can own any type of record",
+        "B. Queues can be used in sharing rules as the 'shared to' target",
+        "C. Queues automatically grant edit access to all members",
+        "D. Queues can only contain individual users, not groups"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Queues can be used as the target in owner-based sharing rules. Queues can only own certain objects (Cases, Leads, etc.), members get Read-only access by default (configurable), and Queues can contain Public Groups."
+    },
+    {
+      "id": 55,
+      "topic": "Teams",
+      "question": "Which teams are available in Salesforce?",
+      "options": [
+        "A. Account Teams only",
+        "B. Account Teams and Opportunity Teams",
+        "C. Account Teams, Opportunity Teams, and Case Teams",
+        "D. Account Teams, Opportunity Teams, Case Teams, and Lead Teams"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Salesforce provides Account Teams, Opportunity Teams, and Case Teams. There is no standard Lead Team feature. Each team type has different behaviors around access inheritance and ownership transfer."
+    },
+    {
+      "id": 56,
+      "topic": "Teams",
+      "question": "What happens to Opportunity Team members when the parent Account owner changes?",
+      "options": [
+        "A. Opportunity Teams are deleted",
+        "B. Opportunity Teams are unchanged",
+        "C. Opportunity Team access is downgraded to Read Only",
+        "D. Opportunity Teams are transferred to the new Account owner"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Opportunity Teams persist when the Account owner changes because they're tied to the Opportunity, not the Account. Only direct Opportunity ownership changes affect Opportunity Team sharing (when configured to delete on owner change)."
+    },
+    {
+      "id": 57,
+      "topic": "Implicit Sharing",
+      "question": "Which type of implicit sharing allows an Account owner to see related Contacts even with Private Contact OWD?",
+      "options": [
+        "A. Child implicit sharing",
+        "B. Parent implicit sharing",
+        "C. Lookup implicit sharing",
+        "D. There is no implicit sharing for Contacts"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Parent implicit sharing grants Account owners Read access to child Contacts (and Opportunities, Cases) even when OWD is Private. This ensures Account owners can see the full context of their accounts."
+    },
+    {
+      "id": 58,
+      "topic": "Implicit Sharing",
+      "question": "A user is added to an Opportunity Team with Edit access. What access do they have to the parent Account?",
+      "options": [
+        "A. No access unless explicitly shared",
+        "B. Read-only access through implicit sharing",
+        "C. Edit access matching their Opportunity access",
+        "D. The same access as the Opportunity owner"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Opportunity Team members receive Read-only implicit access to the parent Account (child implicit sharing), regardless of their Opportunity access level. This ensures they can see Account context for the Opportunity."
+    },
+    {
+      "id": 59,
+      "topic": "Communities",
+      "question": "Which sharing mechanism is specifically designed for High-Volume Community users who don't have roles?",
+      "options": [
+        "A. Sharing Rules",
+        "B. Role Hierarchy",
+        "C. Sharing Sets",
+        "D. Manual Sharing"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Sharing Sets are designed for High-Volume Community/Portal users who don't have roles. They grant access based on the user's Contact or Account relationship to records."
+    },
+    {
+      "id": 60,
+      "topic": "Communities",
+      "question": "A Partner Community user needs to see all Opportunities related to their Account, not just ones they own. What should be configured?",
+      "options": [
+        "A. A sharing rule based on Account",
+        "B. Super User Access for the partner user",
+        "C. A Sharing Set with Account-based access mapping",
+        "D. Manual sharing from the Account owner"
+      ],
+      "correctAnswer": "C",
+      "explanation": "A Sharing Set with access mapping from the user's Account to Opportunities provides automatic access to all Opportunities under their Account. Super User Access is for accessing other partner users' records."
+    },
+    {
+      "id": 61,
+      "topic": "Communities",
+      "question": "What is the difference between Customer Community and Partner Community licenses regarding sharing?",
+      "options": [
+        "A. No difference - sharing works identically",
+        "B. Partner users can have roles; Customer Community Plus users can optionally have roles",
+        "C. Only Partner users can use Sharing Sets",
+        "D. Customer users cannot see any records"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Partner Community users have roles in a separate portal hierarchy. Customer Community users are high-volume and roleless, but Customer Community Plus users can optionally have roles, enabling role-based sharing."
+    },
+    {
+      "id": 62,
+      "topic": "Guest Users",
+      "question": "After the Guest User security update, what must be configured for guest users to see records?",
+      "options": [
+        "A. Public OWD is sufficient",
+        "B. Guest User Sharing Rules must explicitly grant access",
+        "C. Guest users automatically see all Public Read Only records",
+        "D. Guest User Profile permissions are sufficient"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The 'Secure Guest User Record Access' setting requires explicit Guest User Sharing Rules to grant access, even when OWD is Public. This prevents accidental data exposure to unauthenticated users."
+    },
+    {
+      "id": 63,
+      "topic": "Guest Users",
+      "question": "Which records can Guest User Sharing Rules share access to?",
+      "options": [
+        "A. Any record in the org",
+        "B. Only records where OWD is Public",
+        "C. Only records matching the rule's criteria",
+        "D. Only records owned by the site's admin user"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Guest User Sharing Rules share specific records matching criteria (like Status = 'Published') to the Guest User. They function similarly to criteria-based sharing rules but target guest users."
+    },
+    {
+      "id": 64,
+      "topic": "Restriction Rules",
+      "question": "A Restriction Rule is created to hide records where Confidential__c = true. Which users are affected?",
+      "options": [
+        "A. All users except System Administrators",
+        "B. Only the users specified in the rule's user criteria",
+        "C. All users including System Administrators",
+        "D. Only external/community users"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Restriction Rules target specific users based on user criteria (like Profile or Custom Permission). Admins with 'Modify All Data' are typically exempt, but the rule only affects users matching its criteria."
+    },
+    {
+      "id": 65,
+      "topic": "Restriction Rules",
+      "question": "How do Restriction Rules interact with Sharing Rules?",
+      "options": [
+        "A. Sharing Rules override Restriction Rules",
+        "B. Restriction Rules override Sharing Rules",
+        "C. They cannot be used on the same object",
+        "D. The more permissive rule wins"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Restriction Rules take precedence over all other sharing - if a record matches a Restriction Rule, the user cannot see it even if sharing rules, teams, or manual sharing would normally grant access."
+    },
+    {
+      "id": 66,
+      "topic": "Scoping Rules",
+      "question": "A Scoping Rule is configured to show only records where Region__c = 'West' for certain users. Can these users still access records from other regions?",
+      "options": [
+        "A. No, Scoping Rules completely restrict access",
+        "B. Yes, via direct URL or record ID lookup",
+        "C. Only through reports",
+        "D. Only through sharing rules"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Scoping Rules only filter default views (list views, searches, lookups) - they don't restrict actual record access. Users can still access records outside their scope via direct links if they have sharing access."
+    },
+    {
+      "id": 67,
+      "topic": "Large Data Volume",
+      "question": "What is the recommended threshold for considering Large Data Volume (LDV) sharing strategies?",
+      "options": [
+        "A. 100,000 records",
+        "B. 1 million records",
+        "C. 10 million records",
+        "D. It depends on the object and sharing complexity"
+      ],
+      "correctAnswer": "D",
+      "explanation": "There's no fixed threshold - LDV considerations depend on record volume, sharing rule complexity, group sizes, data skew, and update frequency. Generally, tens of millions of records warrant LDV strategies."
+    },
+    {
+      "id": 68,
+      "topic": "Large Data Volume",
+      "question": "Which sharing strategy minimizes the number of sharing records in a large org?",
+      "options": [
+        "A. Using many specific criteria-based sharing rules",
+        "B. Using Apex managed sharing for all scenarios",
+        "C. Opening OWD to Public Read Only and using profiles/permissions for restrictions",
+        "D. Creating separate public groups for each use case"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Opening OWD reduces sharing record count to near zero (only owner records). This shifts control to profiles/permissions and potentially restriction rules, which scale much better than sharing rules at high volumes."
+    },
+    {
+      "id": 69,
+      "topic": "Large Data Volume",
+      "question": "What causes 'group membership operations' delays in large orgs?",
+      "options": [
+        "A. Too many users in the org",
+        "B. Adding/removing users from large groups triggers sharing recalculation",
+        "C. Groups with too many nested groups",
+        "D. Using groups in too many sharing rules"
+      ],
+      "correctAnswer": "B",
+      "explanation": "When a user is added to or removed from a group, Salesforce recalculates all sharing rules referencing that group. With large groups or many rules, this causes significant processing delays."
+    },
+    {
+      "id": 70,
+      "topic": "Large Data Volume",
+      "question": "A company needs to load 50 million records with complex sharing. What should they do first?",
+      "options": [
+        "A. Load records in small batches",
+        "B. Defer sharing calculations during load, then enable",
+        "C. Create all sharing rules after the load",
+        "D. Use Data Loader with a small batch size"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Deferring sharing calculations during bulk loads prevents per-record sharing calculation overhead. After the load completes, re-enable sharing to trigger efficient parallel recalculation."
+    },
+    {
+      "id": 71,
+      "topic": "Troubleshooting",
+      "question": "A user can see an Account in a list view but gets 'Insufficient Privileges' when clicking on it. What's the most likely cause?",
+      "options": [
+        "A. The list view has different sharing than the record",
+        "B. A Restriction Rule is blocking access",
+        "C. The user's profile lacks Read access to Account",
+        "D. The Account OWD changed recently"
+      ],
+      "correctAnswer": "B",
+      "explanation": "This pattern suggests a Scoping Rule (not Restriction Rule) shows the record in lists, but something blocks actual access. However, the most likely cause of this specific symptom is a Restriction Rule - the record appears in some cached views but access is denied."
+    },
+    {
+      "id": 72,
+      "topic": "Troubleshooting",
+      "question": "Sharing recalculation for an object has been running for 48+ hours. What should be done?",
+      "options": [
+        "A. Wait - long recalculations are normal",
+        "B. Contact Salesforce Support to check for issues",
+        "C. Delete and recreate the sharing rules",
+        "D. Change the OWD to Public temporarily"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Extended recalculation times often indicate a problem - data skew, circular group membership, or system issues. Salesforce Support can investigate and potentially restart or optimize the process."
+    },
+    {
+      "id": 73,
+      "topic": "Troubleshooting",
+      "question": "How can you find all the reasons a specific user has access to a specific record?",
+      "options": [
+        "A. Query the Share object filtering by UserOrGroupId",
+        "B. Use the 'Sharing' button on the record detail page",
+        "C. Check the user's profile permissions",
+        "D. Run a sharing rule report"
+      ],
+      "correctAnswer": "B",
+      "explanation": "The Sharing button (or Sharing Hierarchy) on a record shows all access grants - ownership, role hierarchy, sharing rules, manual sharing, and teams. This provides a complete picture without manual queries."
+    },
+    {
+      "id": 74,
+      "topic": "Role Hierarchy",
+      "question": "What is the maximum number of roles allowed in a Salesforce org?",
+      "options": [
+        "A. 500",
+        "B. 1,000",
+        "C. 5,000",
+        "D. 10,000"
+      ],
+      "correctAnswer": "A",
+      "explanation": "The default limit is 500 roles per org. This can be increased by Salesforce Support for complex organizations, but very large role hierarchies can impact sharing performance."
+    },
+    {
+      "id": 75,
+      "topic": "Role Hierarchy",
+      "question": "A user is in multiple roles due to a configuration error. What happens?",
+      "options": [
+        "A. The user gets access from both roles",
+        "B. The first assigned role takes precedence",
+        "C. Users can only be in one role - this isn't possible",
+        "D. An error prevents the user from logging in"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Each user can only be assigned to one role at a time. The Role field on User is a single lookup, not a multi-select. Portal users have their own portal role hierarchy."
+    },
+    {
+      "id": 76,
+      "topic": "Profiles and Permissions",
+      "question": "A user has 'Modify All' permission for Opportunities on their profile. What does this grant?",
+      "options": [
+        "A. Read access to all Opportunities",
+        "B. Read and Edit access to all Opportunities",
+        "C. Read, Edit, Delete, and Transfer access to all Opportunities",
+        "D. Full control including changing OWD"
+      ],
+      "correctAnswer": "C",
+      "explanation": "'Modify All' grants full access to all records of that object - Read, Edit, Delete, Transfer ownership, and approve workflows - regardless of sharing settings. It's object-specific 'superuser' access."
+    },
+    {
+      "id": 77,
+      "topic": "Profiles and Permissions",
+      "question": "What is the difference between 'View All' and 'Modify All' data permissions?",
+      "options": [
+        "A. View All is read-only; Modify All includes edit and delete",
+        "B. View All is for reports; Modify All is for records",
+        "C. They're the same permission with different names",
+        "D. View All is per-object; Modify All is org-wide"
+      ],
+      "correctAnswer": "A",
+      "explanation": "'View All' grants read access to all records of an object. 'Modify All' grants read, edit, delete, and transfer access. Both bypass sharing rules but 'Modify All' provides more capabilities."
+    },
+    {
+      "id": 78,
+      "topic": "Sharing Tables",
+      "question": "What is stored in the AccountShare table?",
+      "options": [
+        "A. All Account records",
+        "B. Account sharing records including owner, rules, manual, and team sharing",
+        "C. Only manually shared Account records",
+        "D. Account team member records"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Share tables (like AccountShare) store all sharing records for an object - owner shares, rule-based shares, manual shares, team shares, and Apex shares. Each row grants one user/group access to one record."
+    },
+    {
+      "id": 79,
+      "topic": "Sharing Tables",
+      "question": "Why might the Share table for an object become very large?",
+      "options": [
+        "A. Too many records in the object",
+        "B. Many sharing rules combined with Private OWD and complex group membership",
+        "C. Using Apex managed sharing",
+        "D. Having too many users in the org"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Share table size explodes when Private OWD requires explicit shares, combined with many sharing rules targeting large/nested groups. Each rule × matching records × group members creates sharing rows."
+    },
+    {
+      "id": 80,
+      "topic": "Sharing Rules",
+      "question": "What happens to existing sharing when a sharing rule is deleted?",
+      "options": [
+        "A. Sharing is immediately revoked",
+        "B. Sharing persists until the next recalculation",
+        "C. A background job removes the sharing asynchronously",
+        "D. Users must manually revoke the sharing"
+      ],
+      "correctAnswer": "C",
+      "explanation": "When a sharing rule is deleted, Salesforce asynchronously removes the associated sharing records. This may take time depending on the number of affected records."
+    },
+    {
+      "id": 81,
+      "topic": "Sharing Rules",
+      "question": "Can a sharing rule grant access that exceeds the user's profile permissions?",
+      "options": [
+        "A. Yes, sharing rules override profile permissions",
+        "B. No, profile permissions always take precedence",
+        "C. Only for custom objects",
+        "D. Only with Modify All Data permission"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Sharing rules grant record-level access but cannot exceed object/field permissions. If a profile lacks Read access to Accounts, sharing rules for Accounts are irrelevant - the user still can't see them."
+    },
+    {
+      "id": 82,
+      "topic": "API and Sharing",
+      "question": "A SOQL query returns records that a user shouldn't see based on sharing. What's happening?",
+      "options": [
+        "A. SOQL bypasses sharing rules",
+        "B. The query is running 'without sharing'",
+        "C. API access ignores OWD settings",
+        "D. The user has 'View All Data' permission"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Apex can run 'without sharing' which bypasses sharing rules for that code execution. API calls and anonymous Apex also run without sharing by default. This must be carefully considered for security."
+    },
+    {
+      "id": 83,
+      "topic": "API and Sharing",
+      "question": "How does the 'with sharing' keyword affect Apex code?",
+      "options": [
+        "A. It grants additional sharing access",
+        "B. It enforces the current user's sharing rules on SOQL queries",
+        "C. It shares the code with other users",
+        "D. It only affects DML operations"
+      ],
+      "correctAnswer": "B",
+      "explanation": "'with sharing' makes Apex code respect the running user's sharing settings, filtering SOQL results to only records they can access. This is important for security in user-facing functionality."
+    },
+    {
+      "id": 84,
+      "topic": "Delegated Administration",
+      "question": "A Delegated Admin can manage users in their group. Can they also share records with those users?",
+      "options": [
+        "A. Yes, automatically",
+        "B. Yes, if they also have sharing access to the records",
+        "C. No, Delegated Admins cannot share records",
+        "D. Only through Account or Opportunity Teams"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Delegated Admins can share records they have access to with users they manage, but their sharing capability is limited to their own record access. They cannot share records they can't see."
+    },
+    {
+      "id": 85,
+      "topic": "Reports and Dashboards",
+      "question": "A Dashboard is set to 'Run as Specified User'. What determines which records are shown?",
+      "options": [
+        "A. The viewer's sharing access",
+        "B. The specified user's sharing access",
+        "C. The combination of both users' access",
+        "D. No sharing is applied to dashboards"
+      ],
+      "correctAnswer": "B",
+      "explanation": "'Run as Specified User' means the dashboard shows data that the specified user can see, regardless of who's viewing. This allows executives to share dashboards that show their view of data."
+    },
+    {
+      "id": 86,
+      "topic": "Reports and Dashboards",
+      "question": "What does the 'Run as Logged-In User' dashboard option do?",
+      "options": [
+        "A. Shows an error if the user lacks access",
+        "B. Shows each viewer data they have access to see",
+        "C. Grants the viewer temporary elevated access",
+        "D. Only shows data the dashboard creator can see"
+      ],
+      "correctAnswer": "B",
+      "explanation": "'Run as Logged-In User' means each viewer sees data based on their own sharing access. The same dashboard shows different data to different users based on their permissions."
+    },
+    {
+      "id": 87,
+      "topic": "Experience Cloud",
+      "question": "A community uses external Account hierarchy to control sharing. What does this enable?",
+      "options": [
+        "A. Community users can see all accounts in the org",
+        "B. Parent account users can see records from child accounts in their hierarchy",
+        "C. Community users inherit internal role hierarchy access",
+        "D. Accounts automatically share with related Contacts"
+      ],
+      "correctAnswer": "B",
+      "explanation": "External Account Hierarchy lets community users at parent accounts see records owned by users at child accounts in their account hierarchy, similar to how role hierarchy works for internal users."
+    },
+    {
+      "id": 88,
+      "topic": "Experience Cloud",
+      "question": "What is a 'Portal Role' in the context of community sharing?",
+      "options": [
+        "A. A role that can only access portal pages",
+        "B. An internal role assigned to community users",
+        "C. A separate role hierarchy for community/portal users",
+        "D. A permission set for portal features"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Portal roles exist in a separate hierarchy from internal roles. Each Account with portal users gets a hierarchy of portal roles (Executive, Manager, User) that control sharing among that account's portal users."
+    },
+    {
+      "id": 89,
+      "topic": "Files and Content",
+      "question": "How does sharing work for Files (ContentDocument)?",
+      "options": [
+        "A. Files inherit sharing from the record they're attached to",
+        "B. Files have their own sharing through ContentDocumentLink",
+        "C. Files are always visible to all users",
+        "D. Files use the same OWD as Accounts"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Files use ContentDocumentLink to control sharing. When a file is attached to a record, a link grants access based on the record's sharing, but files can also be shared directly with users or groups."
+    },
+    {
+      "id": 90,
+      "topic": "Files and Content",
+      "question": "A user can see a Case but cannot see files attached to it. What's the most likely cause?",
+      "options": [
+        "A. The ContentDocumentLink was deleted",
+        "B. The file owner restricted sharing",
+        "C. The user lacks 'Read' on ContentDocument object",
+        "D. File sharing requires separate permission"
+      ],
+      "correctAnswer": "A",
+      "explanation": "If the ContentDocumentLink between the file and Case is missing or restricted, the user won't see the file even with Case access. The link controls the sharing relationship."
+    },
+    {
+      "id": 91,
+      "topic": "Custom Objects",
+      "question": "A custom object has OWD set to Private. What sharing mechanisms are available?",
+      "options": [
+        "A. Only role hierarchy and sharing rules",
+        "B. Role hierarchy, sharing rules, manual sharing, Apex managed sharing, and teams",
+        "C. Role hierarchy, sharing rules, manual sharing, and Apex managed sharing",
+        "D. Only role hierarchy and Apex managed sharing"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Custom objects support role hierarchy, owner/criteria-based sharing rules, manual sharing, and Apex managed sharing. Teams (Account, Opportunity, Case) are only for those specific standard objects."
+    },
+    {
+      "id": 92,
+      "topic": "Custom Objects",
+      "question": "A custom object is on the detail side of a master-detail relationship with Account. What sharing options are available?",
+      "options": [
+        "A. All standard sharing options",
+        "B. Only Controlled by Parent - no other sharing mechanisms",
+        "C. Controlled by Parent, plus Apex sharing can provide additional access",
+        "D. The same options as the parent Account"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Master-detail children inherit sharing from the parent (Controlled by Parent), but Apex managed sharing can still add additional access. Sharing rules and manual sharing aren't available for Controlled by Parent objects."
+    },
+    {
+      "id": 93,
+      "topic": "Lookup vs Master-Detail",
+      "question": "A company wants child records to always be visible if the parent is visible, but needs independent ownership. What relationship type should they use?",
+      "options": [
+        "A. Master-Detail",
+        "B. Lookup with sharing rule",
+        "C. Lookup with 'Controlled by Parent' OWD",
+        "D. External Lookup"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Master-Detail would inherit sharing but wouldn't allow independent ownership. Lookup maintains separate ownership and requires sharing rules or other mechanisms to mirror parent access. 'Controlled by Parent' only works with Master-Detail."
+    },
+    {
+      "id": 94,
+      "topic": "Apex Triggers and Sharing",
+      "question": "An after insert trigger needs to create sharing records. What's the correct approach?",
+      "options": [
+        "A. Insert sharing records directly in the trigger",
+        "B. Use a @future method to create sharing records",
+        "C. Both approaches work; direct is simpler, @future helps with governor limits",
+        "D. Sharing records can only be created via Process Builder"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Both approaches work. Direct insertion is simpler but counts against trigger governor limits. @future methods run asynchronously, avoiding some limits but adding complexity. Choose based on volume and requirements."
+    },
+    {
+      "id": 95,
+      "topic": "Flows and Sharing",
+      "question": "Can a Flow grant sharing access to records?",
+      "options": [
+        "A. No, Flows cannot modify sharing",
+        "B. Yes, by directly creating Share records",
+        "C. Yes, by calling Apex that creates sharing",
+        "D. Only Screen Flows can modify sharing"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Flows cannot directly create Share records, but they can invoke Apex (via Invocable Methods) that creates sharing. This is a common pattern for declarative sharing management."
+    },
+    {
+      "id": 96,
+      "topic": "Shield Platform Encryption",
+      "question": "How does Shield Platform Encryption affect sharing?",
+      "options": [
+        "A. Encrypted fields cannot be used in sharing rule criteria",
+        "B. Sharing is disabled for encrypted objects",
+        "C. Encrypted data requires additional sharing permissions",
+        "D. Encryption and sharing are completely independent"
+      ],
+      "correctAnswer": "A",
+      "explanation": "Encrypted fields cannot be used in sharing rule criteria, filter conditions, or SOQL WHERE clauses. This is a key consideration when designing sharing for objects with sensitive encrypted data."
+    },
+    {
+      "id": 97,
+      "topic": "Event Monitoring",
+      "question": "Which Event Monitoring event type tracks sharing-related activities?",
+      "options": [
+        "A. Sharing Event",
+        "B. Login Event only",
+        "C. Various events including API, Apex, and Record Access",
+        "D. There is no sharing-specific event monitoring"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Event Monitoring captures sharing-related data across multiple event types. API events show record access, Apex events capture sharing code execution, and Login events can help trace access patterns."
+    },
+    {
+      "id": 98,
+      "topic": "Best Practices",
+      "question": "What is the recommended order for designing a sharing model?",
+      "options": [
+        "A. Sharing Rules → OWD → Role Hierarchy → Teams",
+        "B. OWD → Role Hierarchy → Sharing Rules → Manual/Apex Sharing",
+        "C. Profile Permissions → OWD → All other sharing",
+        "D. Teams → Sharing Rules → OWD → Role Hierarchy"
+      ],
+      "correctAnswer": "C",
+      "explanation": "Start with profile/permission set object permissions, then set OWD as restrictive as possible, design role hierarchy, then add sharing rules, and finally consider manual/Apex sharing for edge cases."
+    },
+    {
+      "id": 99,
+      "topic": "Best Practices",
+      "question": "Why should you avoid deeply nested groups in sharing rules?",
+      "options": [
+        "A. They're not supported",
+        "B. They cause slow group membership recalculation",
+        "C. They can't be used with owner-based rules",
+        "D. They exceed the group member limit"
+      ],
+      "correctAnswer": "B",
+      "explanation": "Deeply nested groups create complex membership chains. Any change to membership triggers recalculation across all nested levels, causing performance issues especially with large user populations."
+    },
+    {
+      "id": 100,
+      "topic": "Best Practices",
+      "question": "A company frequently changes user roles. What should they consider for sharing performance?",
+      "options": [
+        "A. Role changes don't affect sharing",
+        "B. Use queues instead of roles",
+        "C. Minimize sharing rules referencing 'Role and Subordinates'",
+        "D. Disable role hierarchy entirely"
+      ],
+      "correctAnswer": "C",
+      "explanation": "'Role and Subordinates' groups are recalculated on every role change. With many sharing rules using these groups, frequent role changes cause significant sharing recalculation overhead. Consider direct role groups or other strategies."
+    }
+  ]
+}
